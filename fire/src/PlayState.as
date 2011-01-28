@@ -17,7 +17,6 @@ package
 			initMap();
 			
 			this.add(mapLayer);
-			this.add(new FlxText(0,0,100,"Hello, World!")); //adds a 100px wide text field at position 0,0 (upper left)
 		}
 		
 		override public function update():void  
@@ -31,10 +30,7 @@ package
 			
 			map = new FlxTilemap();
 			map.drawIndex = 0;
-
 			map.loadMap(new Map, Tiles, 48, 48);
-	
-			
 			mapLayer.add(map);
 		}
 	}
