@@ -53,8 +53,8 @@ package
 			initWind();
 			
 			// debug text
-			text = new FlxText(0,30,100,"Hello, World!")
-			this.add(text);
+			//text = new FlxText(0,30,100,"Hello, World!")
+			//this.add(text);
 
 		}
 		
