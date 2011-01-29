@@ -58,15 +58,24 @@ package
 				return false;
 		}
 		
-		public function decreaseThreshold(value:int):void
+		// returns false if threshhold has reached zero
+		public function decreaseThreshold(value:int):Boolean
 		{
 			this.burn_threshold -= value; 
+			if (this.burn_threshold <= 0)
+				return false;
+			else
+				return true;
 		}
 		
-		public function decreaseDuration(value:int):void
+		// returns false if objects has burned out
+		public function decreaseDuration(value:int):Boolean
 		{
 			this.burn_duration -= value;
-			//TODO check for null or negative and update isBurning
+			if (this.burn_duration <= 0)
+				return false;
+			else
+				return true;
 		}
 	}
 }
