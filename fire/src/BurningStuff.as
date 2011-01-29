@@ -6,7 +6,13 @@ package
 		private burn_threshold:Int;
 		private burn_duration:Int;
 		private burn_energy:Int;
-		private burn_state:String;
+		
+		// we have 4 states of 'burning'
+		// 0 = normal
+		// 1 = scorching (anbrennen)
+		// 2 = burning
+		// 3 = burnt
+		private burn_state:Int;
 		
 		//public tile_position_x;
 		//public tile_position_y;
@@ -19,22 +25,38 @@ package
 			this.burn_energy = _burn_energy;
 			this.burn_state = _burn_state;
 			
-			this.state = "normal";
+			this.state = 0;
 		}
 		
-		public function setOnFire()
+		public function setOnFire():void
 		{
 			this.state = burning;
 		}
 		
-		public function setScorch()
+		public function setScorch():void
 		{
-			this.state = "scorching";
+			this.state = 1;
 		}
 		
-		public function setBurnt()
+		public function setBurnt():void 
 		{
-			this.state = "burnt";
+			this.state = 2;
+		}
+		
+		public function isBurning():Boolean
+		{
+			if (this.state == 2)
+				return true;
+			else
+				return false;
+		}
+		
+		public function isScorching():Boolean
+		{
+			if (this.state == 1)
+				return true;
+			else
+				return false;
 		}
 		
 		public function decreaseThreshold(value:Int)
@@ -46,6 +68,5 @@ package
 		{
 			this.burn_duration -= value;
 		}
-		
 	}
 }
