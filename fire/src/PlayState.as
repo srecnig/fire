@@ -45,6 +45,7 @@ package
 			// set fire start place
 			startPoint = new FlxPoint(1,1);
 			var bs:BurningStuff = mapElements[startPoint.x][startPoint.y].setOnFire();
+			map.setTile(startPoint.x,startPoint.y,map.getTile(startPoint.x,startPoint.y)+1,true);
 			activeElements[0] = startPoint;
 			
 			// add windbar (and initialize wind)
@@ -213,6 +214,7 @@ package
 			if (!mapElements[point.x][point.y].isBurnt() && !mapElements[point.x][point.y].isBurning()) {
 				//var test:Boolean = !mapElements[point.x][point.y].decreaseThreshold(value)
 				if (!mapElements[point.x][point.y].decreaseThreshold(value)) {
+					map.setTile(point.x,point.y,map.getTile(point.x,point.y)+1,true);
 					for (var i:int=0; i<activeElements.length; i++)
 					{
 						if (activeElements[i]==null) {
