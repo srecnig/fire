@@ -15,7 +15,7 @@ package
 			this.height = 48;
 			this.width = 48;
 			
-			this.addAnimation("smoking", [0, 1, 2 ], 1, true);
+			this.addAnimation("smoking", [0, 1, 2 ], 10, true);
 			
 			//this.play("smoking");
 		}

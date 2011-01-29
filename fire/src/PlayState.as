@@ -64,14 +64,7 @@ package
 		{
 			super.update();
 			burn();
-			/*
-			if(FlxG.keys.justPressed("B")) {
-				map.setTile(1,1,2,true);
-			}
-			if(FlxG.keys.justPressed("N")) {
-				map.setTile(1,1,0,true);
-			}
-			*/
+
 			if (FlxG.keys.justPressed("K"))
 				map.setTile(1,1,6,true);
 			
@@ -113,10 +106,23 @@ package
 			// refresh wind bar
 			wind_bar_bar.scale.x = wind.getEnergyLevel();
 		
+			/*
 			if (wind.isActive())
 				text.text = String(wind.getDirection());
 			else
 				text.text = "";
+			*/
+			if (gameOver == true)
+			{
+				text = new FlxText(40, 200, FlxG.width, "YOU'VE BEEN EXTINGUISHED!!!\n\n PRESS ENTER TO PLAY AGAIN");
+				text.setFormat(null, 30, 0xffffffff, null, 0);
+				this.add(text);
+			}
+			
+			if(FlxG.keys.ENTER && gameOver == true)
+			{
+				FlxG.state = new PlayState();
+			}
 		}
 		
 		public function burn():void
