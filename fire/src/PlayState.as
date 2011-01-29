@@ -36,6 +36,9 @@ package
 			this.add(mapLayer);
 			
 			// set fire start place
+			startPoint = new FlxPoint(0,1);
+			map[startPoint.x][startPoint.y].setOnFire();
+			activeElements.push(startPoint);
 			
 			// add windbar (and initialize wind)
 			initWind();
@@ -104,16 +107,57 @@ package
 				text.text = "";
 		}
 		
-		public function burn():void {
-			var point:Point;
-			var actElement:BurningStuff;
+		public function burn():void
+		{
+			var actMapPos:Point;
+			var actBurnStuff:BurningStuff;
 			for (var i:int=0; i<activeElements.length; i++)
 			{
-				actElement = mapElements[activeElements[i].x][activeElements[i].y];
-				//actElement.decreaseDuration();
-				if (!actElement.isBurning())
+				// init
+				actMapPos = activeElements[i];
+				actBurnStuff = mapElements[actMapPos.x][actMapPos.y];
+				
+				// check wind
+				if (wind.isActive())
+					wind.getDirection();
+				
+				// check surrounding
+				if (!(actMapPos.x-1<0) && !(actMapPos.y-1<0))
+					if (!mapElements[actMapPos.x-1][actMapPos.y-1].decreaseThreshold())
+						activeElements.push(new Point(actMapPos.x-1,actMapPos.y-1));
+				if (!(actMapPos.y-1<0))
+					if (!mapElements[actMapPos.x][actMapPos.y-1].decreaseThreshold())
+						activeElements.push(new Point(actMapPos.x,actMapPos.y-1));
+				if (!(actMapPos.y-1<0) && !(actMapPos.x+1>mapWidth))
+					if (!mapElements[actMapPos.x+1][actMapPos.y-1].decreaseThreshold())
+						activeElements.push(new Point(actMapPos.x+1,actMapPos.y-1));
+				if (!(actMapPos.x-1<0))
+					if (!mapElements[actMapPos.x-1][actMapPos.y].decreaseThreshold())
+						activeElements.push(new Point(actMapPos.x-1,actMapPos.y));
+				if (!(actMapPos.x+1>mapWidth))
+					if (!mapElements[actMapPos.x+1][actMapPos.y].decreaseThreshold())
+						activeElements.push(new Point(actMapPos.x+1,actMapPos.y));
+				if (!(actMapPos.y+1>mapHeight) && !(actMapPos.x-1<0))
+					if (!mapElements[actMapPos.x-1][actMapPos.y+1].decreaseThreshold())
+						activeElements.push(new Point(actMapPos.x-1,actMapPos.y+1));
+				if (!(actMapPos.y+1>mapHeight))
+					if (!mapElements[actMapPos.x][actMapPos.y+1].decreaseThreshold())
+						activeElements.push(new Point(actMapPos.x,actMapPos.y+1));
+				if (!(actMapPos.y+1>mapHeight) && !(actMapPos.x+1>mapWidth))
+					if (!mapElements[actMapPos.x+1][actMapPos.y+1].decreaseThreshold())
+						activeElements.push(new Point(actMapPos.x+1,actMapPos.y+1));
+				
+				// check duration
+				if (!actBurnStuff.decreaseDuration(10)) {
 					activeElements.slice(i,1);
+					// TODO change tile
+				}
 			}
+		}
+		
+		public function scorch():void
+		{
+			
 		}
 		
 		public function initMap():void
