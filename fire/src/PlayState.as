@@ -128,21 +128,21 @@ package
 					actMapPos = activeElements[i] as FlxPoint;
 					
 					// check wind
-					if (wind.isActive())
-						wind.getDirection();
+					/*if (wind.isActive())
+						wind.getDirection();*/
 					
 					// check surrounding
 					if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 0) {
 						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
-						/*scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
+						scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
 						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1));
 						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
 						scorch(new FlxPoint(actMapPos.x,actMapPos.y));
 						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));
 						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
 						scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));
-						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1));*/
-					} /*else if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 1) {
+						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1));
+					} else if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 1) {
 						if (mapElements[actMapPos.x][actMapPos.y].getNeighboursUp()) {
 							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
 							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
@@ -196,7 +196,7 @@ package
 							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));
 				
 						} 
-					}*/
+					}
 						
 					
 					// check duration
@@ -209,8 +209,9 @@ package
 		}
 		
 		public function scorch(point:FlxPoint):void {
-			var value:int = 10;
-			if (!mapElements[point.x][point.y].isBurnt()) {
+			var value:int = 3;
+			if (!mapElements[point.x][point.y].isBurnt() && !mapElements[point.x][point.y].isBurning()) {
+				//var test:Boolean = !mapElements[point.x][point.y].decreaseThreshold(value)
 				if (!mapElements[point.x][point.y].decreaseThreshold(value)) {
 					for (var i:int=0; i<activeElements.length; i++)
 					{
