@@ -38,9 +38,9 @@ package
 			// adds the tileset to the game
 			this.add(mapLayer);
 			
-			// initialize firesprite
-			firesprite = new FireSprite();
-			this.add(firesprite);
+			// initialize firesprite testing only
+			//firesprite = new FireSprite();
+			//this.add(firesprite);
 			
 			// set fire start place
 			startPoint = new FlxPoint(0,1);
