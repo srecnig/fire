@@ -7,6 +7,9 @@ package
 		private var burn_duration:int = 0;
 		private var burn_energy:int = 0;
 		
+		private var fire_animation:FireSprite;
+		private var smoke_animation:SmokeSprite;
+		
 		// we have 4 states of 'burning'
 		// 0 = normal
 		// 1 = scorching (anbrennen)
@@ -105,6 +108,26 @@ package
 			{
 				return true;
 			}
+		}
+		
+		public function setFireAnimation(_fire_animation: FireSprite):void
+		{
+			this.fire_animation = _fire_animation;
+		}
+		
+		public function killFireAnimation():void
+		{
+			this.fire_animation.kill();
+		}
+		
+		public function setSmokeAnimation(_smoke_animation: SmokeSprite):void
+		{
+			this.smoke_animation = _smoke_animation;
+		}
+		
+		public function killSmokeAnimation(): void
+		{
+			this.smoke_animation.kill();
 		}
 	}
 }
