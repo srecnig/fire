@@ -14,6 +14,10 @@ package
 		private var activeElements:Array = new Array();
 		
 		private var wind:Wind;
+		private var wind_bar_frame:FlxSprite;
+		private var wind_bar_inside:FlxSprite;
+		private var wind_bar_bar:FlxSprite;
+		
 		private var stuff:BurningStuff;
 		
 		override public function create():void
@@ -74,7 +78,28 @@ package
 
 		public function initWindbar():void
 		{
-		
+			wind = new Wind(100, 5, 10);
+			// init wind-bar
+			/*
+			wind_bar_frame = new FlxSprite(4,4);
+			wind_bar_frame.createGraphic(50,10); //White frame for the health bar
+			wind_bar_frame.scrollFactor.x = wind_bar_frame.scrollFactor.y = 0;
+			add(wind_bar_frame);
+			
+			var inside:FlxSprite = new FlxSprite(5,5);
+			inside.createGraphic(48,8,0xff000000); //Black interior, 48 pixels wide
+			inside.scrollFactor.x = inside.scrollFactor.y = 0;
+			add(inside);
+			
+			var bar:FlxSprite = new FlxSprite(5,5);
+			bar.createGraphic(1,8,0xffff0000); //The red bar itself
+			bar.scrollFactor.x = bar.scrollFactor.y = 0;
+			bar.origin.x = bar.origin.y = 0; //Zero out the origin
+			bar.scale.x = 48; //Fill up the health bar all the way
+			add(bar);
+			
+			bar.scale.x = 24; //Drop the health bar to half
+			*/
 		}
 		
 		public function calculateBurning():void
