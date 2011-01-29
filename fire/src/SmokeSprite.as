@@ -4,7 +4,7 @@ package
 	
 	public class SmokeSprite extends FlxSprite
 	{
-		[Embed(source="../images/feuer.png")] private var fire_sprite_image:Class;
+		[Embed(source="../images/rauch.png")] private var fire_sprite_image:Class;
 		
 		public function SmokeSprite(_x:Number, _y:Number):void
 		{
@@ -15,7 +15,7 @@ package
 			this.height = 48;
 			this.width = 48;
 			
-			this.addAnimation("smoking", [0, 1, 2, 3 ], 10);
+			this.addAnimation("smoking", [0, 1, 2 ], 10);
 			
 			play("smoking");
 		}
