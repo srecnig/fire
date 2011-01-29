@@ -25,7 +25,9 @@ package
 		private var wind_bar_inside:FlxSprite;
 		private var wind_bar_bar:FlxSprite;
 		
+		// i think those are testing only
 		private var stuff:BurningStuff;
+		private var firesprite:FireSprite;
 		
 		private var text:FlxText;
 		
@@ -36,6 +38,10 @@ package
 			
 			// adds the tileset to the game
 			this.add(mapLayer);
+			
+			// initialize firesprite
+			firesprite = new FireSprite();
+			this.add(firesprite);
 			
 			// set fire start place
 			startPoint = new FlxPoint(0,1);
