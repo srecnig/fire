@@ -28,19 +28,35 @@ package
 			this.state = 0;
 		}
 		
-		public function setOnFire()
+		public function setOnFire():void
 		{
 			this.state = burning;
 		}
 		
-		public function setScorch()
+		public function setScorch():void
 		{
 			this.state = 1;
 		}
 		
-		public function setBurnt()
+		public function setBurnt():void 
 		{
 			this.state = 2;
+		}
+		
+		public function isBurning():Boolean
+		{
+			if (this.state == 2)
+				return true;
+			else
+				return false;
+		}
+		
+		public function isScorching():Boolean
+		{
+			if (this.state == 1)
+				return true;
+			else
+				return false;
 		}
 		
 		public function decreaseThreshold(value:Int)
