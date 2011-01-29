@@ -17,7 +17,7 @@ package
 		private var activeElements:Array= new Array();
 		private var startPoint:FlxPoint = new FlxPoint(); 
 		private var mapWidth:int = 4;
-		private var mapHeight:int = 4;
+		private var mapHeight:int = 3;
 		
 		private var wind:Wind;
 		private var wind_bar_frame:FlxSprite;
@@ -43,8 +43,8 @@ package
 			this.add(firesprite);
 			
 			// set fire start place
-			startPoint = new FlxPoint(0,1);
-			mapElements[startPoint.x][startPoint.y].setOnFire();
+			startPoint = new FlxPoint(0,0);
+			var bs:BurningStuff = mapElements[startPoint.x][startPoint.y].setOnFire();
 			activeElements[0] = startPoint;
 			
 			// add windbar (and initialize wind)
@@ -135,35 +135,35 @@ package
 					var value:int = 10;
 					// check surrounding
 					if (!(actMapPos.x-1<0) && !(actMapPos.y-1<0))
-						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurnt())
 							if (!mapElements[actMapPos.x-1][actMapPos.y-1].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
 					if (!(actMapPos.y-1<0))
-						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+						if (!mapElements[actMapPos.x][actMapPos.y-1].isBurnt())
 							if (!mapElements[actMapPos.x][actMapPos.y-1].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x,actMapPos.y-1));
 					if (!(actMapPos.y-1<0) && !(actMapPos.x+1>mapWidth))
-						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+						if (!mapElements[actMapPos.x+1][actMapPos.y-1].isBurnt())
 							if (!mapElements[actMapPos.x+1][actMapPos.y-1].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y-1));
 					if (!(actMapPos.x-1<0))
-						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+						if (!mapElements[actMapPos.x-1][actMapPos.y].isBurnt())
 							if (!mapElements[actMapPos.x-1][actMapPos.y].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x-1,actMapPos.y));
 					if (!(actMapPos.x+1>mapWidth))
-						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+						if (!mapElements[actMapPos.x+1][actMapPos.y].isBurnt())
 							if (!mapElements[actMapPos.x+1][actMapPos.y].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y));
 					if (!(actMapPos.y+1>mapHeight) && !(actMapPos.x-1<0))
-						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+						if (!mapElements[actMapPos.x-1][actMapPos.y+1].isBurnt())
 							if (!mapElements[actMapPos.x-1][actMapPos.y+1].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
 					if (!(actMapPos.y+1>mapHeight))
-						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+						if (!mapElements[actMapPos.x][actMapPos.y+1].isBurnt())
 							if (!mapElements[actMapPos.x][actMapPos.y+1].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x,actMapPos.y+1));
 					if (!(actMapPos.y+1>mapHeight) && !(actMapPos.x+1>mapWidth))
-						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+						if (!mapElements[actMapPos.x+1][actMapPos.y+1].isBurnt())
 							if (!mapElements[actMapPos.x+1][actMapPos.y+1].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y+1));
 					
