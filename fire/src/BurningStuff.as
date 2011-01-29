@@ -127,16 +127,20 @@ package
 			if (this.burn_threshold > 0)
 				this.burn_threshold = 0;
 			this.burn_state = 2;
+			this.stopSmokeAnimation();
+			this.startFireAnimation();
 		}
 		
 		public function setScorching():void
 		{
 			this.burn_state = 1;
+			this.startSmokeAnimation();
 		}
 		
 		public function setBurnt():void 
 		{
 			this.burn_state = 3;
+			this.stopFireAnimation();
 		}
 		
 		public function isBurning():Boolean
@@ -202,22 +206,22 @@ package
 			}
 		}
 		
-		public function setFireAnimation(_fire_animation: FireSprite):void
+		public function startFireAnimation():void
 		{
-			this.fire_animation = _fire_animation;
+			this.fire_animation = new FireSprite(this.tile_position_x * 48, this.tile_position_y * 48);
 		}
 		
-		public function killFireAnimation():void
+		public function stopFireAnimation():void
 		{
 			this.fire_animation.kill();
 		}
 		
-		public function setSmokeAnimation(_smoke_animation: SmokeSprite):void
+		public function startSmokeAnimation():void
 		{
-			this.smoke_animation = _smoke_animation;
+			this.smoke_animation = new SmokeSprite(this.tile_position_x * 48, this.tile_position_y * 48);
 		}
 		
-		public function killSmokeAnimation(): void
+		public function stopSmokeAnimation(): void
 		{
 			this.smoke_animation.kill();
 		}
