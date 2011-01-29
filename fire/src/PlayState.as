@@ -30,7 +30,7 @@ package
 			
 			map = new FlxTilemap();
 			map.drawIndex = 0;
-			map.loadMap(new Map, Tiles, 48, 48);
+			map.loadMap(new Map, Tiles, 48);
 			mapLayer.add(map);
 		}
 	}
