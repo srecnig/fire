@@ -15,18 +15,35 @@ package
 		private var mapElements:Array = new Array();
 		private var activeElements:Vector = new Vector();
 		private var startPoint:FlxPoint = new FlxPoint(); 
-		private var mapWidth = 4;
-		private var mapHeight = 4;
+		private var mapWidth:int = 4;
+		private var mapHeight:int = 4;
 		
 		private var wind:Wind;
+		private var wind_bar_frame:FlxSprite;
+		private var wind_bar_inside:FlxSprite;
+		private var wind_bar_bar:FlxSprite;
+		
 		private var stuff:BurningStuff;
+		
+		private var text:FlxText;
 		
 		override public function create():void
 		{
 			initMap();
-			this.add(mapLayer);
 			initArray();
-			activeElements.push(startPoint);
+			
+			// adds the tileset to the game
+			this.add(mapLayer);
+			
+			// set fire start place
+			
+			// add windbar (and initialize wind)
+			initWind();
+			
+			// debug text
+			text = new FlxText(0,30,100,"Hello, World!")
+			this.add(text);
+
 		}
 		
 		override public function update():void  
@@ -42,6 +59,49 @@ package
 			}
 			*/
 			
+			
+			// handle keystrokes
+			if (FlxG.keys.UP || FlxG.keys.RIGHT || FlxG.keys.DOWN || FlxG.keys.LEFT)
+			{
+				// find out which direction
+				if (FlxG.keys.UP && FlxG.keys.RIGHT)
+					wind.setDirection(1);
+				else if (FlxG.keys.UP && FlxG.keys.LEFT)
+					wind.setDirection(7);
+				else if (FlxG.keys.DOWN && FlxG.keys.RIGHT)
+					wind.setDirection(3);
+				else if (FlxG.keys.DOWN && FlxG.keys.LEFT)
+					wind.setDirection(5);
+				else if (FlxG.keys.UP )
+					wind.setDirection(0);
+				else if (FlxG.keys.RIGHT)
+					wind.setDirection(2);
+				else if (FlxG.keys.DOWN)
+					wind.setDirection(4);
+				else if (FlxG.keys.LEFT)
+					wind.setDirection(6);
+				
+				// set wind as active
+				wind.setActive(true);
+				
+				// decrease wind-power	
+				wind.blow();
+			}
+			else
+			{
+				// set wind as not active
+				wind.setActive(false);
+				
+				// regain wind-power
+				wind.refresh();
+			}
+			// refresh wind bar
+			wind_bar_bar.scale.x = wind.getEnergyLevel();
+		
+			if (wind.isActive())
+				text.text = String(wind.getDirection());
+			else
+				text.text = "";
 		}
 		
 		public function burn():void {
@@ -91,9 +151,31 @@ package
 			
 		}
 
-		public function initWindbar():void
+		public function initWind():void
 		{
-		
+			// init wind object
+			wind = new Wind(100, 75, 1, 2);
+			
+			// init wind-bar			
+			wind_bar_frame = new FlxSprite(4,4);
+			wind_bar_frame.createGraphic(102,10); //White frame for the health bar
+			wind_bar_frame.scrollFactor.x = wind_bar_frame.scrollFactor.y = 0;
+			this.add(wind_bar_frame);
+			
+			
+			wind_bar_inside = new FlxSprite(5,5);
+			wind_bar_inside.createGraphic(100,8,0xff000000); //Black interior, 48 pixels wide
+			wind_bar_inside.scrollFactor.x = wind_bar_inside.scrollFactor.y = 0;
+			add(wind_bar_inside);
+			
+			
+			wind_bar_bar = new FlxSprite(5,5);
+			wind_bar_bar.createGraphic(1,8,0xff33aaff); //The blue bar itself
+			wind_bar_bar.scrollFactor.x = wind_bar_bar.scrollFactor.y = 0;
+			wind_bar_bar.origin.x = wind_bar_bar.origin.y = 0; //Zero out the origin
+			wind_bar_bar.scale.x = wind.getEnergyLevel(); //Fill up the health bar all the way
+			add(wind_bar_bar);
+			
 		}
 		
 		public function calculateBurning():void
