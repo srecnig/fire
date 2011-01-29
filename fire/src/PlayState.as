@@ -1,6 +1,5 @@
 package
 {
-	import flash.geom.Point;
 	
 	import org.flixel.*;
 	
@@ -71,7 +70,8 @@ package
 				map.setTile(1,1,0,true);
 			}
 			*/
-			
+			if (FlxG.keys.justPressed("K"))
+				map.setTile(1,1,6,true);
 			
 			// handle keystrokes
 			if (FlxG.keys.UP || FlxG.keys.RIGHT || FlxG.keys.DOWN || FlxG.keys.LEFT)
@@ -125,7 +125,7 @@ package
 			{
 				if (!(activeElements[i] == null)) {
 					// init
-					actMapPos = activeElements[i];
+					actMapPos = activeElements[i] as FlxPoint;
 					var test:int = actMapPos.x;
 					//actBurnStuff = mapElements[actMapPos.x][actMapPos.y] as BurningStuff;
 					
@@ -135,42 +135,48 @@ package
 					var value:int = 10;
 					// check surrounding
 					if (!(actMapPos.x-1<0) && !(actMapPos.y-1<0))
-						if (!mapElements[actMapPos.x-1][actMapPos.y-1].decreaseThreshold(value))
-							setElementActive(new Point(actMapPos.x-1,actMapPos.y-1));
+						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+							if (!mapElements[actMapPos.x-1][actMapPos.y-1].decreaseThreshold(value))
+								setElementActive(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
 					if (!(actMapPos.y-1<0))
-						if (!mapElements[actMapPos.x][actMapPos.y-1].decreaseThreshold(value))
-							setElementActive(new Point(actMapPos.x,actMapPos.y-1));
+						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+							if (!mapElements[actMapPos.x][actMapPos.y-1].decreaseThreshold(value))
+								setElementActive(new FlxPoint(actMapPos.x,actMapPos.y-1));
 					if (!(actMapPos.y-1<0) && !(actMapPos.x+1>mapWidth))
-						if (!mapElements[actMapPos.x+1][actMapPos.y-1].decreaseThreshold(value))
-							setElementActive(new Point(actMapPos.x+1,actMapPos.y-1));
+						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+							if (!mapElements[actMapPos.x+1][actMapPos.y-1].decreaseThreshold(value))
+								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y-1));
 					if (!(actMapPos.x-1<0))
-						if (!mapElements[actMapPos.x-1][actMapPos.y].decreaseThreshold(value))
-							setElementActive(new Point(actMapPos.x-1,actMapPos.y));
+						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+							if (!mapElements[actMapPos.x-1][actMapPos.y].decreaseThreshold(value))
+								setElementActive(new FlxPoint(actMapPos.x-1,actMapPos.y));
 					if (!(actMapPos.x+1>mapWidth))
-						if (!mapElements[actMapPos.x+1][actMapPos.y].decreaseThreshold(value))
-							setElementActive(new Point(actMapPos.x+1,actMapPos.y));
+						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+							if (!mapElements[actMapPos.x+1][actMapPos.y].decreaseThreshold(value))
+								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y));
 					if (!(actMapPos.y+1>mapHeight) && !(actMapPos.x-1<0))
-						if (!mapElements[actMapPos.x-1][actMapPos.y+1].decreaseThreshold(value))
-							setElementActive(new Point(actMapPos.x-1,actMapPos.y+1));
+						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+							if (!mapElements[actMapPos.x-1][actMapPos.y+1].decreaseThreshold(value))
+								setElementActive(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
 					if (!(actMapPos.y+1>mapHeight))
-						if (!mapElements[actMapPos.x][actMapPos.y+1].decreaseThreshold(value))
-							setElementActive(new Point(actMapPos.x,actMapPos.y+1));
+						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+							if (!mapElements[actMapPos.x][actMapPos.y+1].decreaseThreshold(value))
+								setElementActive(new FlxPoint(actMapPos.x,actMapPos.y+1));
 					if (!(actMapPos.y+1>mapHeight) && !(actMapPos.x+1>mapWidth))
-						if (!mapElements[actMapPos.x+1][actMapPos.y+1].decreaseThreshold(value))
-							setElementActive(new Point(actMapPos.x+1,actMapPos.y+1));
+						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurned())
+							if (!mapElements[actMapPos.x+1][actMapPos.y+1].decreaseThreshold(value))
+								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y+1));
 					
 					// check duration
-					if (!mapElements[actMapPos.x][actMapPos.y].decreaseDuration(2)) {
-						map.setTile(actMapPos.x,actMapPos.x,map.getTile(actMapPos.x,actMapPos.x)+1,false);
-						text = new FlxText(0,30,100,"blah");
-						add(text);
+					if (!mapElements[actMapPos.x][actMapPos.y].decreaseDuration(1)) {
+						map.setTile(actMapPos.x,actMapPos.y,map.getTile(actMapPos.x,actMapPos.y)+1,true);
 						activeElements[i]=null;
 					}
 				}
 			}
 		}
 		
-		public function setElementActive(point:Point):void
+		public function setElementActive(point:FlxPoint):void
 		{
 			for (var i:int=0; i<activeElements.length; i++)
 			{
@@ -198,19 +204,19 @@ package
 				for (var y:int=0; y<mapHeight; y++) {
 					switch (map.getTile(x,y)) {
 						case 0:
-							mapElements[x][y] = new BurningStuff("Tree",100,10,30);
+							mapElements[x][y] = new BurningStuff("Tree",100,100,30);
 							break ;
 						case 3:
-							mapElements[x][y] = new BurningStuff("Wald",100,10,30);
+							mapElements[x][y] = new BurningStuff("Wald",100,100,3000);
 							break ;
 						case 6:
-							mapElements[x][y] = new BurningStuff("Stadt",100,10,30);
+							mapElements[x][y] = new BurningStuff("Stadt",100,100,30);
 							break ;
 						case 9:
-							mapElements[x][y] = new BurningStuff("See",100,10,30);
+							mapElements[x][y] = new BurningStuff("See",100,10,300);
 							break ;
 						default:
-							mapElements[x][y] = new BurningStuff("Tree",100,10,30);
+							mapElements[x][y] = new BurningStuff("Tree",100,10,300);
 					} 
 				}
 			}
