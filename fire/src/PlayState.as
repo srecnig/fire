@@ -20,6 +20,8 @@ package
 		
 		private var stuff:BurningStuff;
 		
+		private var text:FlxText;
+		
 		override public function create():void
 		{
 			initMap();
@@ -30,6 +32,10 @@ package
 			
 			// add windbar (and initialize wind)
 			initWind();
+			
+			// debug text
+			text = new FlxText(0,30,100,"Hello, World!")
+			this.add(text);
 		}
 		
 		override public function update():void  
@@ -44,6 +50,20 @@ package
 			}
 			*/
 			
+			
+			// handle keystrokes
+			if (FlxG.keys.pressed("SPACE"))
+			{
+				// decrease wind-power	
+				wind.blow();
+			}
+			else
+			{
+				// regain wind-power
+				wind.refresh();
+			}
+			// refresh wind bar
+			wind_bar_bar.scale.x = wind.getEnergyLevel();
 		}
 		
 		public function initMap():void
@@ -83,26 +103,27 @@ package
 
 		public function initWind():void
 		{
-			wind = new Wind(100, 5, 10);
-			// init wind-bar
+			// init wind object
+			wind = new Wind(100, 75, 1, 2);
 			
+			// init wind-bar			
 			wind_bar_frame = new FlxSprite(4,4);
-			wind_bar_frame.createGraphic(50,10); //White frame for the health bar
+			wind_bar_frame.createGraphic(102,10); //White frame for the health bar
 			wind_bar_frame.scrollFactor.x = wind_bar_frame.scrollFactor.y = 0;
 			this.add(wind_bar_frame);
 			
 			
 			wind_bar_inside = new FlxSprite(5,5);
-			wind_bar_inside.createGraphic(48,8,0xff000000); //Black interior, 48 pixels wide
+			wind_bar_inside.createGraphic(100,8,0xff000000); //Black interior, 48 pixels wide
 			wind_bar_inside.scrollFactor.x = wind_bar_inside.scrollFactor.y = 0;
 			add(wind_bar_inside);
 			
 			
 			wind_bar_bar = new FlxSprite(5,5);
-			wind_bar_bar.createGraphic(1,8,0xff33aaff); //The red bar itself
+			wind_bar_bar.createGraphic(1,8,0xff33aaff); //The blue bar itself
 			wind_bar_bar.scrollFactor.x = wind_bar_bar.scrollFactor.y = 0;
 			wind_bar_bar.origin.x = wind_bar_bar.origin.y = 0; //Zero out the origin
-			wind_bar_bar.scale.x = 24; //Fill up the health bar all the way
+			wind_bar_bar.scale.x = wind.getEnergyLevel(); //Fill up the health bar all the way
 			add(wind_bar_bar);
 			
 		}
