@@ -5,7 +5,7 @@ package
 	
 	public class PlayState extends FlxState
 	{
-		[Embed(source = "../images/dummy_tileset.png")] private var Tiles:Class;
+		[Embed(source = "../images/inc_tileset.png")] private var Tiles:Class;
 		[Embed(source = '../data/tilemap.txt', mimeType = "application/octet-stream")] private var Map:Class;
 		[Embed(source="../images/wald.png")] private var ImgTiles:Class;
 		
@@ -16,8 +16,8 @@ package
 		
 		private var activeElements:Array= new Array();
 		private var startPoint:FlxPoint = new FlxPoint(); 
-		private var mapWidth:int = 4;
-		private var mapHeight:int = 3;
+		private var mapWidth:int = 5;
+		private var mapHeight:int = 4;
 		
 		private var wind:Wind;
 		private var wind_bar_frame:FlxSprite;
@@ -243,19 +243,19 @@ package
 				for (var y:int=0; y<mapHeight; y++) {
 					switch (map.getTile(x,y)) {
 						case 0:
-							mapElements[x][y] = new BurningStuff("Tree",100,100,30);
+							mapElements[x][y] = new BurningStuff("Grass",300,100,30);
 							break ;
 						case 3:
-							mapElements[x][y] = new BurningStuff("Wald",100,100,30);
+							mapElements[x][y] = new BurningStuff("Wald",500,100,30);
 							break ;
 						case 6:
-							mapElements[x][y] = new BurningStuff("Stadt",100,100,30);
+							mapElements[x][y] = new BurningStuff("Stadt",600,100,30);
 							break ;
 						case 9:
-							mapElements[x][y] = new BurningStuff("See",100,100,30);
+							mapElements[x][y] = new BurningStuff("See",1000,100,30);
 							break ;
 						default:
-							mapElements[x][y] = new BurningStuff("Tree",100,100,30);
+							mapElements[x][y] = new BurningStuff("Grass",300,100,30);
 					} 
 					if (y-1<0)
 						mapElements[x][y].setNeighboursUp(false);
