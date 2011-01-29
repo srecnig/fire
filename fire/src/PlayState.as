@@ -22,6 +22,12 @@ package
 		override public function update():void  
 		{
 			super.update();
+			if(FlxG.keys.justPressed("B")) {
+				map.setTile(1,1,2,true);
+			}
+			if(FlxG.keys.justPressed("N")) {
+				map.setTile(1,1,0,true);
+			}
 		}
 		
 		public function initMap():void
