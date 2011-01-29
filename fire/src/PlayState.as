@@ -132,9 +132,76 @@ package
 					// check wind
 					if (wind.isActive())
 						wind.getDirection();
-					var value:int = 10;
+					
 					// check surrounding
-					if (!(actMapPos.x-1<0) && !(actMapPos.y-1<0))
+					if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 0) {
+						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
+						scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
+						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1));
+						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
+						scorch(new FlxPoint(actMapPos.x,actMapPos.y));
+						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));
+						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
+						scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));
+						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1));
+					} else if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 1) {
+						if (mapElements[actMapPos.x][actMapPos.y].getNeighboursUp()) {
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1));
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));
+						} else {
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1));
+						}
+					} else if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 2) {
+						if (mapElements[actMapPos.x][actMapPos.y].getNeighboursLeft()) {
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));							
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y));							
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));	
+						} else {						
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1));						
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));							
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1));						}
+					} else if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 3) {
+						if (!mapElements[actMapPos.x][actMapPos.y].getNeighboursLeft() && !mapElements[actMapPos.x][actMapPos.y].getNeighboursUp()) {
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));							
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1));
+						} else if (!mapElements[actMapPos.x][actMapPos.y].getNeighboursUp() && !mapElements[actMapPos.x][actMapPos.y].getNeighboursRight()) {
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y));							
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));																
+						} else if (!mapElements[actMapPos.x][actMapPos.y].getNeighboursRight() && !mapElements[actMapPos.x][actMapPos.y].getNeighboursDown()) {
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));							
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y));							
+						} else if (!mapElements[actMapPos.x][actMapPos.y].getNeighboursDown() && !mapElements[actMapPos.x][actMapPos.y].getNeighboursLeft()) {						
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1));							
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));
+				
+						} 
+					}
+						
+					
+					/*if (!(actMapPos.x-1<0) && !(actMapPos.y-1<0))
 						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurnt())
 							if (!mapElements[actMapPos.x-1][actMapPos.y-1].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
@@ -142,7 +209,7 @@ package
 						if (!mapElements[actMapPos.x][actMapPos.y-1].isBurnt())
 							if (!mapElements[actMapPos.x][actMapPos.y-1].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x,actMapPos.y-1));
-					if (!(actMapPos.y-1<0) && !(actMapPos.x+1>mapWidth))
+					if (!(actMapPos.y-1<0) && !(actMapPos.x+1>=mapWidth))
 						if (!mapElements[actMapPos.x+1][actMapPos.y-1].isBurnt())
 							if (!mapElements[actMapPos.x+1][actMapPos.y-1].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y-1));
@@ -150,22 +217,22 @@ package
 						if (!mapElements[actMapPos.x-1][actMapPos.y].isBurnt())
 							if (!mapElements[actMapPos.x-1][actMapPos.y].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x-1,actMapPos.y));
-					if (!(actMapPos.x+1>mapWidth))
+					if (!(actMapPos.x+1>=mapWidth))
 						if (!mapElements[actMapPos.x+1][actMapPos.y].isBurnt())
 							if (!mapElements[actMapPos.x+1][actMapPos.y].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y));
-					if (!(actMapPos.y+1>mapHeight) && !(actMapPos.x-1<0))
+					if (!(actMapPos.y+1>=mapHeight) && !(actMapPos.x-1<0))
 						if (!mapElements[actMapPos.x-1][actMapPos.y+1].isBurnt())
 							if (!mapElements[actMapPos.x-1][actMapPos.y+1].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
-					if (!(actMapPos.y+1>mapHeight))
+					if (!(actMapPos.y+1>=mapHeight))
 						if (!mapElements[actMapPos.x][actMapPos.y+1].isBurnt())
 							if (!mapElements[actMapPos.x][actMapPos.y+1].decreaseThreshold(value))
 								setElementActive(new FlxPoint(actMapPos.x,actMapPos.y+1));
-					if (!(actMapPos.y+1>mapHeight) && !(actMapPos.x+1>mapWidth))
+					if (!(actMapPos.y+1>=mapHeight) && !(actMapPos.x+1>=mapWidth))
 						if (!mapElements[actMapPos.x+1][actMapPos.y+1].isBurnt())
 							if (!mapElements[actMapPos.x+1][actMapPos.y+1].decreaseThreshold(value))
-								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y+1));
+								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y+1));*/
 					
 					// check duration
 					if (!mapElements[actMapPos.x][actMapPos.y].decreaseDuration(1)) {
@@ -174,6 +241,13 @@ package
 					}
 				}
 			}
+		}
+		
+		public function scorch(point:FlxPoint):void {
+			var value:int = 200;
+			if (!mapElements[point.x][point.y].isBurnt())
+				if (!mapElements[point.x][point.y].decreaseThreshold(value))
+					setElementActive(point);
 		}
 		
 		public function setElementActive(point:FlxPoint):void
@@ -207,17 +281,28 @@ package
 							mapElements[x][y] = new BurningStuff("Tree",100,100,30);
 							break ;
 						case 3:
-							mapElements[x][y] = new BurningStuff("Wald",100,100,3000);
+							mapElements[x][y] = new BurningStuff("Wald",100,100,30);
 							break ;
 						case 6:
 							mapElements[x][y] = new BurningStuff("Stadt",100,100,30);
 							break ;
 						case 9:
-							mapElements[x][y] = new BurningStuff("See",100,10,300);
+							mapElements[x][y] = new BurningStuff("See",100,100,30);
 							break ;
 						default:
-							mapElements[x][y] = new BurningStuff("Tree",100,10,300);
+							mapElements[x][y] = new BurningStuff("Tree",100,100,30);
 					} 
+					if (y-1<0)
+						mapElements[x][y].setNeighboursUp(false);
+					if (x+1>=mapWidth)
+						mapElements[x][y].setNeighboursRight(false);
+					if (y+1>=mapHeight)
+						mapElements[x][y].setNeighboursDown(false);
+					if (x-1<0)
+						mapElements[x][y].setNeighboursLeft(false);
+					mapElements[x][y].checkNeighbours();
+					mapElements[x][y].setTileX(x);
+					mapElements[x][y].setTileY(y);
 				}
 			}
 			

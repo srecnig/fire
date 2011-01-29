@@ -106,7 +106,7 @@ package
 		// returns 1, if neighbours on the top
 		public function checkNeighbours():void
 		{
-			if (this.neighbours_up && this.neighbours_right && this.neighbours_down && this.neighbours_right)
+			if (this.neighbours_up && this.neighbours_right && this.neighbours_down && this.neighbours_left)
 				this.neighbourhood_value = 0;
 			else if ((this.neighbours_up == false || this.neighbours_down == false) && this.neighbours_left == true && this.neighbours_right == true)
 				this.neighbourhood_value = 1;
