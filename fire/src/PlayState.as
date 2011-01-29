@@ -52,18 +52,47 @@ package
 			
 			
 			// handle keystrokes
-			if (FlxG.keys.pressed("SPACE"))
+			if (FlxG.keys.UP || FlxG.keys.RIGHT || FlxG.keys.DOWN || FlxG.keys.LEFT)
 			{
+				// find out which direction
+				if (FlxG.keys.UP && FlxG.keys.RIGHT)
+					wind.setDirection(1);
+				else if (FlxG.keys.UP && FlxG.keys.LEFT)
+					wind.setDirection(7);
+				else if (FlxG.keys.DOWN && FlxG.keys.RIGHT)
+					wind.setDirection(3);
+				else if (FlxG.keys.DOWN && FlxG.keys.LEFT)
+					wind.setDirection(5);
+				else if (FlxG.keys.UP )
+					wind.setDirection(0);
+				else if (FlxG.keys.RIGHT)
+					wind.setDirection(2);
+				else if (FlxG.keys.DOWN)
+					wind.setDirection(4);
+				else if (FlxG.keys.LEFT)
+					wind.setDirection(6);
+				
+				// set wind as active
+				wind.setActive(true);
+				
 				// decrease wind-power	
 				wind.blow();
 			}
 			else
 			{
+				// set wind as not active
+				wind.setActive(false);
+				
 				// regain wind-power
 				wind.refresh();
 			}
 			// refresh wind bar
 			wind_bar_bar.scale.x = wind.getEnergyLevel();
+		
+			if (wind.isActive())
+				text.text = String(wind.getDirection());
+			else
+				text.text = "";
 		}
 		
 		public function initMap():void
