@@ -24,7 +24,12 @@ package
 		{
 			initMap();
 			initArray();
+			
+			// adds the tileset to the game
 			this.add(mapLayer);
+			
+			// add windbar (and initialize wind)
+			initWind();
 		}
 		
 		override public function update():void  
@@ -76,30 +81,30 @@ package
 			
 		}
 
-		public function initWindbar():void
+		public function initWind():void
 		{
 			wind = new Wind(100, 5, 10);
 			// init wind-bar
-			/*
+			
 			wind_bar_frame = new FlxSprite(4,4);
 			wind_bar_frame.createGraphic(50,10); //White frame for the health bar
 			wind_bar_frame.scrollFactor.x = wind_bar_frame.scrollFactor.y = 0;
-			add(wind_bar_frame);
+			this.add(wind_bar_frame);
 			
-			var inside:FlxSprite = new FlxSprite(5,5);
-			inside.createGraphic(48,8,0xff000000); //Black interior, 48 pixels wide
-			inside.scrollFactor.x = inside.scrollFactor.y = 0;
-			add(inside);
 			
-			var bar:FlxSprite = new FlxSprite(5,5);
-			bar.createGraphic(1,8,0xffff0000); //The red bar itself
-			bar.scrollFactor.x = bar.scrollFactor.y = 0;
-			bar.origin.x = bar.origin.y = 0; //Zero out the origin
-			bar.scale.x = 48; //Fill up the health bar all the way
-			add(bar);
+			wind_bar_inside = new FlxSprite(5,5);
+			wind_bar_inside.createGraphic(48,8,0xff000000); //Black interior, 48 pixels wide
+			wind_bar_inside.scrollFactor.x = wind_bar_inside.scrollFactor.y = 0;
+			add(wind_bar_inside);
 			
-			bar.scale.x = 24; //Drop the health bar to half
-			*/
+			
+			wind_bar_bar = new FlxSprite(5,5);
+			wind_bar_bar.createGraphic(1,8,0xff33aaff); //The red bar itself
+			wind_bar_bar.scrollFactor.x = wind_bar_bar.scrollFactor.y = 0;
+			wind_bar_bar.origin.x = wind_bar_bar.origin.y = 0; //Zero out the origin
+			wind_bar_bar.scale.x = 24; //Fill up the health bar all the way
+			add(wind_bar_bar);
+			
 		}
 		
 		public function calculateBurning():void
