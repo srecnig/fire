@@ -1,6 +1,8 @@
 package
 {
 	
+	import flashx.textLayout.formats.Float;
+	
 	import org.flixel.*;
 	
 	public class PlayState extends FlxState
@@ -217,7 +219,7 @@ package
 		public function scorch(point:FlxPoint, direction:int):void {
 			var value:int = defaultFireEnergy;
 			if (direction == windDirection)
-				value = value*3*(wind.getEnergyLevel()/100);
+				value = value*2*int(10*(wind.getEnergyLevel()/100));
 			if (!mapElements[point.x][point.y].isBurnt() && !mapElements[point.x][point.y].isBurning()) {
 				//var test:Boolean = !mapElements[point.x][point.y].decreaseThreshold(value)
 				if (!mapElements[point.x][point.y].decreaseThreshold(value)) {
@@ -250,19 +252,19 @@ package
 				for (var y:int=0; y<mapHeight; y++) {
 					switch (map.getTile(x,y)) {
 						case 0:
-							mapElements[x][y] = new BurningStuff("Grass",800,100,3);
+							mapElements[x][y] = new BurningStuff("Grass",800,400,1);
 							break ;
 						case 3:
-							mapElements[x][y] = new BurningStuff("Wald",1200,100,2);
+							mapElements[x][y] = new BurningStuff("Wald",1200,400,2);
 							break ;
 						case 6:
-							mapElements[x][y] = new BurningStuff("Stadt",1700,100,3);
+							mapElements[x][y] = new BurningStuff("Stadt",1700,400,3);
 							break ;
 						case 9:
-							mapElements[x][y] = new BurningStuff("See",2200,100,1);
+							mapElements[x][y] = new BurningStuff("See",2200,400,1);
 							break ;
-						default:
-							mapElements[x][y] = new BurningStuff("Grass",800,100,3);
+						//default:
+							//mapElements[x][y] = new BurningStuff("Grass",200,300,3);
 					} 
 					if (y-1<0)
 						mapElements[x][y].setNeighboursUp(false);
