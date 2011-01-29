@@ -63,7 +63,6 @@ package
 		{
 			super.update();
 			burn();
-			this.add(text);
 			/*
 			if(FlxG.keys.justPressed("B")) {
 				map.setTile(1,1,2,true);
@@ -121,50 +120,52 @@ package
 		public function burn():void
 		{
 			var actMapPos:FlxPoint;
-			var actBurnStuff:BurningStuff;
+			//var actBurnStuff:BurningStuff;
 			for (var i:int=0; i<activeElements.length; i++)
 			{
-				// init
-				actMapPos = activeElements[i];
-				var test:int = actMapPos.x;
-				actBurnStuff = mapElements[actMapPos.x][actMapPos.y] as BurningStuff;
-				
-				// check wind
-				if (wind.isActive())
-					wind.getDirection();
-				var value:int = 10;
-				// check surrounding
-				if (!(actMapPos.x-1<0) && !(actMapPos.y-1<0))
-					if (!mapElements[actMapPos.x-1][actMapPos.y-1].decreaseThreshold(value))
-						setElementActive(new Point(actMapPos.x-1,actMapPos.y-1));
-				if (!(actMapPos.y-1<0))
-					if (!mapElements[actMapPos.x][actMapPos.y-1].decreaseThreshold(value))
-						setElementActive(new Point(actMapPos.x,actMapPos.y-1));
-				if (!(actMapPos.y-1<0) && !(actMapPos.x+1>mapWidth))
-					if (!mapElements[actMapPos.x+1][actMapPos.y-1].decreaseThreshold(value))
-						setElementActive(new Point(actMapPos.x+1,actMapPos.y-1));
-				if (!(actMapPos.x-1<0))
-					if (!mapElements[actMapPos.x-1][actMapPos.y].decreaseThreshold(value))
-						setElementActive(new Point(actMapPos.x-1,actMapPos.y));
-				if (!(actMapPos.x+1>mapWidth))
-					if (!mapElements[actMapPos.x+1][actMapPos.y].decreaseThreshold(value))
-						setElementActive(new Point(actMapPos.x+1,actMapPos.y));
-				if (!(actMapPos.y+1>mapHeight) && !(actMapPos.x-1<0))
-					if (!mapElements[actMapPos.x-1][actMapPos.y+1].decreaseThreshold(value))
-						setElementActive(new Point(actMapPos.x-1,actMapPos.y+1));
-				if (!(actMapPos.y+1>mapHeight))
-					if (!mapElements[actMapPos.x][actMapPos.y+1].decreaseThreshold(value))
-						setElementActive(new Point(actMapPos.x,actMapPos.y+1));
-				if (!(actMapPos.y+1>mapHeight) && !(actMapPos.x+1>mapWidth))
-					if (!mapElements[actMapPos.x+1][actMapPos.y+1].decreaseThreshold(value))
-						setElementActive(new Point(actMapPos.x+1,actMapPos.y+1));
-				
-				// check duration
-				if (!actBurnStuff.decreaseDuration(2)) {
-					map.setTile(actMapPos.x,actMapPos.x,map.getTile(actMapPos.x,actMapPos.x)+1,false);
-					text = new FlxText(0,30,100,"blah");
-					add(text);
-					activeElements[i]=null;
+				if (!(activeElements[i] == null)) {
+					// init
+					actMapPos = activeElements[i];
+					var test:int = actMapPos.x;
+					//actBurnStuff = mapElements[actMapPos.x][actMapPos.y] as BurningStuff;
+					
+					// check wind
+					if (wind.isActive())
+						wind.getDirection();
+					var value:int = 10;
+					// check surrounding
+					if (!(actMapPos.x-1<0) && !(actMapPos.y-1<0))
+						if (!mapElements[actMapPos.x-1][actMapPos.y-1].decreaseThreshold(value))
+							setElementActive(new Point(actMapPos.x-1,actMapPos.y-1));
+					if (!(actMapPos.y-1<0))
+						if (!mapElements[actMapPos.x][actMapPos.y-1].decreaseThreshold(value))
+							setElementActive(new Point(actMapPos.x,actMapPos.y-1));
+					if (!(actMapPos.y-1<0) && !(actMapPos.x+1>mapWidth))
+						if (!mapElements[actMapPos.x+1][actMapPos.y-1].decreaseThreshold(value))
+							setElementActive(new Point(actMapPos.x+1,actMapPos.y-1));
+					if (!(actMapPos.x-1<0))
+						if (!mapElements[actMapPos.x-1][actMapPos.y].decreaseThreshold(value))
+							setElementActive(new Point(actMapPos.x-1,actMapPos.y));
+					if (!(actMapPos.x+1>mapWidth))
+						if (!mapElements[actMapPos.x+1][actMapPos.y].decreaseThreshold(value))
+							setElementActive(new Point(actMapPos.x+1,actMapPos.y));
+					if (!(actMapPos.y+1>mapHeight) && !(actMapPos.x-1<0))
+						if (!mapElements[actMapPos.x-1][actMapPos.y+1].decreaseThreshold(value))
+							setElementActive(new Point(actMapPos.x-1,actMapPos.y+1));
+					if (!(actMapPos.y+1>mapHeight))
+						if (!mapElements[actMapPos.x][actMapPos.y+1].decreaseThreshold(value))
+							setElementActive(new Point(actMapPos.x,actMapPos.y+1));
+					if (!(actMapPos.y+1>mapHeight) && !(actMapPos.x+1>mapWidth))
+						if (!mapElements[actMapPos.x+1][actMapPos.y+1].decreaseThreshold(value))
+							setElementActive(new Point(actMapPos.x+1,actMapPos.y+1));
+					
+					// check duration
+					if (!mapElements[actMapPos.x][actMapPos.y].decreaseDuration(2)) {
+						map.setTile(actMapPos.x,actMapPos.x,map.getTile(actMapPos.x,actMapPos.x)+1,false);
+						text = new FlxText(0,30,100,"blah");
+						add(text);
+						activeElements[i]=null;
+					}
 				}
 			}
 		}
