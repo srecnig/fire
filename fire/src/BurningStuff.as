@@ -52,6 +52,14 @@ package
 				return false;
 		}
 		
+		public function isBurnt():Boolean
+		{
+			if (this.burn_state == 4 )
+				return true;
+			else
+				return false;
+		}
+		
 		public function isScorching():Boolean
 		{
 			if (this.burn_state == 1)
