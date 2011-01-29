@@ -43,7 +43,7 @@ package
 			//this.add(firesprite);
 			
 			// set fire start place
-			startPoint = new FlxPoint(0,0);
+			startPoint = new FlxPoint(1,1);
 			var bs:BurningStuff = mapElements[startPoint.x][startPoint.y].setOnFire();
 			activeElements[0] = startPoint;
 			
@@ -126,8 +126,6 @@ package
 				if (!(activeElements[i] == null)) {
 					// init
 					actMapPos = activeElements[i] as FlxPoint;
-					var test:int = actMapPos.x;
-					//actBurnStuff = mapElements[actMapPos.x][actMapPos.y] as BurningStuff;
 					
 					// check wind
 					if (wind.isActive())
@@ -136,15 +134,15 @@ package
 					// check surrounding
 					if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 0) {
 						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
-						scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
+						/*scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
 						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1));
 						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
 						scorch(new FlxPoint(actMapPos.x,actMapPos.y));
 						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));
 						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
 						scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));
-						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1));
-					} else if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 1) {
+						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1));*/
+					} /*else if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 1) {
 						if (mapElements[actMapPos.x][actMapPos.y].getNeighboursUp()) {
 							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
 							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
@@ -198,41 +196,8 @@ package
 							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));
 				
 						} 
-					}
+					}*/
 						
-					
-					/*if (!(actMapPos.x-1<0) && !(actMapPos.y-1<0))
-						if (!mapElements[actMapPos.x-1][actMapPos.y-1].isBurnt())
-							if (!mapElements[actMapPos.x-1][actMapPos.y-1].decreaseThreshold(value))
-								setElementActive(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
-					if (!(actMapPos.y-1<0))
-						if (!mapElements[actMapPos.x][actMapPos.y-1].isBurnt())
-							if (!mapElements[actMapPos.x][actMapPos.y-1].decreaseThreshold(value))
-								setElementActive(new FlxPoint(actMapPos.x,actMapPos.y-1));
-					if (!(actMapPos.y-1<0) && !(actMapPos.x+1>=mapWidth))
-						if (!mapElements[actMapPos.x+1][actMapPos.y-1].isBurnt())
-							if (!mapElements[actMapPos.x+1][actMapPos.y-1].decreaseThreshold(value))
-								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y-1));
-					if (!(actMapPos.x-1<0))
-						if (!mapElements[actMapPos.x-1][actMapPos.y].isBurnt())
-							if (!mapElements[actMapPos.x-1][actMapPos.y].decreaseThreshold(value))
-								setElementActive(new FlxPoint(actMapPos.x-1,actMapPos.y));
-					if (!(actMapPos.x+1>=mapWidth))
-						if (!mapElements[actMapPos.x+1][actMapPos.y].isBurnt())
-							if (!mapElements[actMapPos.x+1][actMapPos.y].decreaseThreshold(value))
-								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y));
-					if (!(actMapPos.y+1>=mapHeight) && !(actMapPos.x-1<0))
-						if (!mapElements[actMapPos.x-1][actMapPos.y+1].isBurnt())
-							if (!mapElements[actMapPos.x-1][actMapPos.y+1].decreaseThreshold(value))
-								setElementActive(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
-					if (!(actMapPos.y+1>=mapHeight))
-						if (!mapElements[actMapPos.x][actMapPos.y+1].isBurnt())
-							if (!mapElements[actMapPos.x][actMapPos.y+1].decreaseThreshold(value))
-								setElementActive(new FlxPoint(actMapPos.x,actMapPos.y+1));
-					if (!(actMapPos.y+1>=mapHeight) && !(actMapPos.x+1>=mapWidth))
-						if (!mapElements[actMapPos.x+1][actMapPos.y+1].isBurnt())
-							if (!mapElements[actMapPos.x+1][actMapPos.y+1].decreaseThreshold(value))
-								setElementActive(new FlxPoint(actMapPos.x+1,actMapPos.y+1));*/
 					
 					// check duration
 					if (!mapElements[actMapPos.x][actMapPos.y].decreaseDuration(1)) {
@@ -244,22 +209,19 @@ package
 		}
 		
 		public function scorch(point:FlxPoint):void {
-			var value:int = 200;
-			if (!mapElements[point.x][point.y].isBurnt())
-				if (!mapElements[point.x][point.y].decreaseThreshold(value))
-					setElementActive(point);
-		}
-		
-		public function setElementActive(point:FlxPoint):void
-		{
-			for (var i:int=0; i<activeElements.length; i++)
-			{
-			 if (activeElements[i]==null) {
-				 activeElements[i] = point;
-				 return;
-			 }
+			var value:int = 10;
+			if (!mapElements[point.x][point.y].isBurnt()) {
+				if (!mapElements[point.x][point.y].decreaseThreshold(value)) {
+					for (var i:int=0; i<activeElements.length; i++)
+					{
+						if (activeElements[i]==null) {
+							activeElements[i] = point;
+							return;
+						}
+					}
+					activeElements.push(point);
+				}
 			}
-			activeElements.push(point);
 		}
 		
 		public function initMap():void

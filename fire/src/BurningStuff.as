@@ -126,7 +126,7 @@ package
 		{
 			if (this.burn_threshold > 0)
 				this.burn_threshold = 0;
-			this.burn_state = 1;
+			this.burn_state = 2;
 		}
 		
 		public function setScorching():void
@@ -136,7 +136,7 @@ package
 		
 		public function setBurnt():void 
 		{
-			this.burn_state = 2;
+			this.burn_state = 3;
 		}
 		
 		public function isBurning():Boolean
@@ -149,7 +149,7 @@ package
 		
 		public function isBurnt():Boolean
 		{
-			if (this.burn_state == 4 )
+			if (this.burn_state == 3 )
 				return true;
 			else
 				return false;
