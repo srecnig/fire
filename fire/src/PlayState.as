@@ -54,8 +54,6 @@ package
 			// debug text
 			text = new FlxText(0,30,100,"Hello, World!")
 			this.add(text);
-			
-			//loadGraphic(ImgSpaceman,true,true,8);
 
 		}
 		
@@ -243,19 +241,19 @@ package
 				for (var y:int=0; y<mapHeight; y++) {
 					switch (map.getTile(x,y)) {
 						case 0:
-							mapElements[x][y] = new BurningStuff("Grass",300,100,30);
+							mapElements[x][y] = new BurningStuff("Grass",500,300,30);
 							break ;
 						case 3:
-							mapElements[x][y] = new BurningStuff("Wald",500,100,30);
+							mapElements[x][y] = new BurningStuff("Wald",1000,300,30);
 							break ;
 						case 6:
-							mapElements[x][y] = new BurningStuff("Stadt",600,100,30);
+							mapElements[x][y] = new BurningStuff("Stadt",1500,300,30);
 							break ;
 						case 9:
-							mapElements[x][y] = new BurningStuff("See",1000,100,30);
+							mapElements[x][y] = new BurningStuff("See",2000,300,30);
 							break ;
 						default:
-							mapElements[x][y] = new BurningStuff("Grass",300,100,30);
+							mapElements[x][y] = new BurningStuff("Grass",500,300,30);
 					} 
 					if (y-1<0)
 						mapElements[x][y].setNeighboursUp(false);

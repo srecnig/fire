@@ -15,9 +15,7 @@ package
 			this.height = 48;
 			this.width = 48;
 			
-			this.addAnimation("burning", [0, 1, 2, 3 ], 1, true);
-			
-			//this.play("burning");
+			this.addAnimation("burning", [0, 1, 2, 3 ], 10, true);
 		}
 		
 		override public function update():void
