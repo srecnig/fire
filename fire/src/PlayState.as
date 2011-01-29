@@ -4,7 +4,7 @@ package
 	
 	public class PlayState extends FlxState
 	{
-		[Embed(source = "../images/grass1.png")] private var Tiles:Class;
+		[Embed(source = "../images/wald.png")] private var Tiles:Class;
 		[Embed(source = '../data/tilemap.txt', mimeType = "application/octet-stream")] private var Map:Class;
 
 		public var mapLayer:FlxGroup;
@@ -39,5 +39,7 @@ package
 			map.loadMap(new Map, Tiles, 48);
 			mapLayer.add(map);
 		}
+		
+		
 	}
 }
