@@ -16,10 +16,11 @@ package
 		
 		private var activeElements:Array= new Array();
 		private var startPoint:FlxPoint = new FlxPoint(); 
-		private var mapWidth:int = 5;
-		private var mapHeight:int = 4;
+		private var mapWidth:int = 13;
+		private var mapHeight:int = 10;
 		
 		private var wind:Wind;
+		private var windDirection:int = -1;
 		private var wind_bar_frame:FlxSprite;
 		private var wind_bar_inside:FlxSprite;
 		private var wind_bar_bar:FlxSprite;
@@ -127,76 +128,67 @@ package
 					actMapPos = activeElements[i] as FlxPoint;
 					
 					// check wind
-					/*if (wind.isActive())
-						wind.getDirection();*/
+					if (wind.isActive())
+						windDirection = wind.getDirection();
 					
 					// check surrounding
 					if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 0) {
-						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
-						scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
-						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1));
-						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
-						scorch(new FlxPoint(actMapPos.x,actMapPos.y));
-						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));
-						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
-						scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));
-						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1));
+						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1),7);
+						scorch(new FlxPoint(actMapPos.x,actMapPos.y-1),0);
+						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1),1);
+						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y),6);						
+						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y),2);
+						scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1),5);
+						scorch(new FlxPoint(actMapPos.x,actMapPos.y+1),4);
+						scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1),3);
 					} else if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 1) {
 						if (mapElements[actMapPos.x][actMapPos.y].getNeighboursUp()) {
-							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
-							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1));
-							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y));
-							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1),7);
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1),0);
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1),1);
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y),6);				
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y),2);
 						} else {
-							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y));
-							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));
-							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));
-							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1));
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y),6);						
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y),2);
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1),5);
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1),4);
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1),3);
 						}
 					} else if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 2) {
 						if (mapElements[actMapPos.x][actMapPos.y].getNeighboursLeft()) {
-							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));							
-							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y));							
-							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));	
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1),7);
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1),0);							
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y),6);														
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1),5);
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1),4);							
 						} else {						
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
-							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1));						
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y));
-							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));							
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));
-							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1));						}
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1),0);
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1),1);													
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y),2);							
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1),4);
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1),3);						}
 					} else if (mapElements[actMapPos.x][actMapPos.y].getNeighbourhoodValue() == 3) {
-						if (!mapElements[actMapPos.x][actMapPos.y].getNeighboursLeft() && !mapElements[actMapPos.x][actMapPos.y].getNeighboursUp()) {
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y));
-							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));							
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));
-							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1));
+						if (!mapElements[actMapPos.x][actMapPos.y].getNeighboursLeft() && !mapElements[actMapPos.x][actMapPos.y].getNeighboursUp()) {							
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y),2);							
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1),4);
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y+1),3);
 						} else if (!mapElements[actMapPos.x][actMapPos.y].getNeighboursUp() && !mapElements[actMapPos.x][actMapPos.y].getNeighboursRight()) {
-							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y));							
-							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1));
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1));																
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y),6);														
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y+1),5);
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y+1),4);																
 						} else if (!mapElements[actMapPos.x][actMapPos.y].getNeighboursRight() && !mapElements[actMapPos.x][actMapPos.y].getNeighboursDown()) {
-							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1));
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));							
-							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y));
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y));							
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y-1),7);
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1),0);							
+							scorch(new FlxPoint(actMapPos.x-1,actMapPos.y),6);														
 						} else if (!mapElements[actMapPos.x][actMapPos.y].getNeighboursDown() && !mapElements[actMapPos.x][actMapPos.y].getNeighboursLeft()) {						
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1));
-							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1));							
-							scorch(new FlxPoint(actMapPos.x,actMapPos.y));
-							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y));
+							scorch(new FlxPoint(actMapPos.x,actMapPos.y-1),0);
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y-1),1);														
+							scorch(new FlxPoint(actMapPos.x+1,actMapPos.y),2);
 				
 						} 
 					}
-						
+					windDirection = -1;	
 					
 					// check duration
 					if (!mapElements[actMapPos.x][actMapPos.y].decreaseDuration(1)) {
@@ -207,8 +199,10 @@ package
 			}
 		}
 		
-		public function scorch(point:FlxPoint):void {
-			var value:int = 3;
+		public function scorch(point:FlxPoint, direction:int):void {
+			var value:int = 1;
+			if (direction == windDirection)
+				value += 10;
 			if (!mapElements[point.x][point.y].isBurnt() && !mapElements[point.x][point.y].isBurning()) {
 				//var test:Boolean = !mapElements[point.x][point.y].decreaseThreshold(value)
 				if (!mapElements[point.x][point.y].decreaseThreshold(value)) {
@@ -241,7 +235,7 @@ package
 				for (var y:int=0; y<mapHeight; y++) {
 					switch (map.getTile(x,y)) {
 						case 0:
-							mapElements[x][y] = new BurningStuff("Grass",500,300,30);
+							mapElements[x][y] = new BurningStuff("Grass",600,300,30);
 							break ;
 						case 3:
 							mapElements[x][y] = new BurningStuff("Wald",1000,300,30);
@@ -253,7 +247,7 @@ package
 							mapElements[x][y] = new BurningStuff("See",2000,300,30);
 							break ;
 						default:
-							mapElements[x][y] = new BurningStuff("Grass",500,300,30);
+							mapElements[x][y] = new BurningStuff("Grass",600,300,30);
 					} 
 					if (y-1<0)
 						mapElements[x][y].setNeighboursUp(false);
