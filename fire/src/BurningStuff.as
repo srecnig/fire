@@ -65,6 +65,9 @@ package
 		// returns false if threshhold has reached zero
 		public function decreaseThreshold(value:int):Boolean
 		{
+			if (!this.isScorching())
+				this.setScorching();	
+			
 			this.burn_threshold -= value; 
 	
 			if (this.burn_threshold <= 0)
