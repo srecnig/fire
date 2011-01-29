@@ -31,6 +31,8 @@ package
 		
 		private var text:FlxText;
 		
+		private var gameOver:Boolean = false;
+		
 		override public function create():void
 		{
 			initMap();
@@ -120,6 +122,7 @@ package
 		public function burn():void
 		{
 			var actMapPos:FlxPoint;
+			var nullCounter:int=0;
 			//var actBurnStuff:BurningStuff;
 			for (var i:int=0; i<activeElements.length; i++)
 			{
@@ -195,8 +198,12 @@ package
 						map.setTile(actMapPos.x,actMapPos.y,map.getTile(actMapPos.x,actMapPos.y)+1,true);
 						activeElements[i]=null;
 					}
+				} else {
+					nullCounter++;
 				}
 			}
+			if (nullCounter == activeElements.length)
+				gameOver=true;
 		}
 		
 		public function scorch(point:FlxPoint, direction:int):void {
