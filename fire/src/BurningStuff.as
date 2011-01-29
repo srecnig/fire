@@ -17,13 +17,12 @@ package
 		//public tile_position_x;
 		//public tile_position_y;
 		
-		public function BurningStuff(_type:String, _burn_threshold:Int, _burn_duration:Int, _burn_energy:Int, _burn_state:String)
+		public function BurningStuff(_type:String, _burn_threshold:Int, _burn_duration:Int, _burn_energy:Int)
 		{
 			this.type = _type;
 			this.burn_threshold = _burn_threshold; 
 			this.burn_duration = _burn_duration;
 			this.burn_energy = _burn_energy;
-			this.burn_state = _burn_state;
 			
 			this.state = 0;
 		}
