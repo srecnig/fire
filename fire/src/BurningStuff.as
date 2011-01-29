@@ -15,6 +15,8 @@ package
 		private var neighbours_down:Boolean;
 		private var neighbours_left:Boolean;
 		
+		public var neighbourhood_value:int;
+		
 		// we have 4 states of 'burning'
 		// 0 = normal
 		// 1 = scorching (anbrennen)
@@ -98,6 +100,26 @@ package
 		public function getNeighboursLeft( ):Boolean
 		{
 			return neighbours_left;
+		}
+		
+		// returns 0, if neighbours everywhere
+		// returns 1, if neighbours on the top
+		public function checkNeighbours():void
+		{
+			if (this.neighbours_up && this.neighbours_right && this.neighbours_down && this.neighbours_right)
+				this.neighbourhood_value = 0;
+			else if ((this.neighbours_up == false || this.neighbours_down == false) && this.neighbours_left == true && this.neighbours_right == true)
+				this.neighbourhood_value = 1;
+			else if ((this.neighbours_left == false || this.neighbours_right == false ) && this.neighbours_up == true && this.neighbours_down == true)
+				this.neighbourhood_value = 2;
+			else 
+				this.neighbourhood_value = 3;
+		}
+		// todo: "neighbourhoodvalue" als variable 
+		
+		public function getNeighbourhoodValue():int
+		{
+			return this.neighbourhood_value;
 		}
 		
 		public function setOnFire():void
