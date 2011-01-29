@@ -32,7 +32,7 @@ package
 			this.burn_state = 1;
 		}
 		
-		public function setScorch():void
+		public function setScorching():void
 		{
 			this.burn_state = 1;
 		}
@@ -53,29 +53,45 @@ package
 		public function isScorching():Boolean
 		{
 			if (this.burn_state == 1)
+			{	
 				return true;
+			}
 			else
+			{	
 				return false;
+			}
 		}
 		
 		// returns false if threshhold has reached zero
 		public function decreaseThreshold(value:int):Boolean
 		{
 			this.burn_threshold -= value; 
+	
 			if (this.burn_threshold <= 0)
+			{
+				this.setOnFire();
 				return false;
+			}
 			else
+			{
 				return true;
+			}
 		}
 		
 		// returns false if objects has burned out
 		public function decreaseDuration(value:int):Boolean
 		{
 			this.burn_duration -= value;
+	
 			if (this.burn_duration <= 0)
+			{
+				this.setBurnt();
 				return false;
+			}
 			else
+			{
 				return true;
+			}
 		}
 	}
 }
