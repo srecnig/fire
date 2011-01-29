@@ -21,6 +21,7 @@ package
 		
 		private var wind:Wind;
 		private var windDirection:int = -1;
+		private var defaultFireEnergy:int = 0;
 		private var wind_bar_frame:FlxSprite;
 		private var wind_bar_inside:FlxSprite;
 		private var wind_bar_bar:FlxSprite;
@@ -129,7 +130,7 @@ package
 				if (!(activeElements[i] == null)) {
 					// init
 					actMapPos = activeElements[i] as FlxPoint;
-					
+					defaultFireEnergy = mapElements[actMapPos.x][actMapPos.y].getBurnEnergy();
 					// check wind
 					if (wind.isActive())
 						windDirection = wind.getDirection();
@@ -191,7 +192,8 @@ package
 				
 						} 
 					}
-					windDirection = -1;	
+					windDirection = -1;
+					defaultFireEnergy = 0;
 					
 					// check duration
 					if (!mapElements[actMapPos.x][actMapPos.y].decreaseDuration(1)) {
@@ -207,9 +209,9 @@ package
 		}
 		
 		public function scorch(point:FlxPoint, direction:int):void {
-			var value:int = 1;
+			var value:int = defaultFireEnergy;
 			if (direction == windDirection)
-				value += 10;
+				value = value*3*(wind.getEnergyLevel()/100);
 			if (!mapElements[point.x][point.y].isBurnt() && !mapElements[point.x][point.y].isBurning()) {
 				//var test:Boolean = !mapElements[point.x][point.y].decreaseThreshold(value)
 				if (!mapElements[point.x][point.y].decreaseThreshold(value)) {
@@ -242,19 +244,19 @@ package
 				for (var y:int=0; y<mapHeight; y++) {
 					switch (map.getTile(x,y)) {
 						case 0:
-							mapElements[x][y] = new BurningStuff("Grass",600,300,30);
+							mapElements[x][y] = new BurningStuff("Grass",800,100,3);
 							break ;
 						case 3:
-							mapElements[x][y] = new BurningStuff("Wald",1000,300,30);
+							mapElements[x][y] = new BurningStuff("Wald",1200,100,2);
 							break ;
 						case 6:
-							mapElements[x][y] = new BurningStuff("Stadt",1500,300,30);
+							mapElements[x][y] = new BurningStuff("Stadt",1700,100,3);
 							break ;
 						case 9:
-							mapElements[x][y] = new BurningStuff("See",2000,300,30);
+							mapElements[x][y] = new BurningStuff("See",2200,100,1);
 							break ;
 						default:
-							mapElements[x][y] = new BurningStuff("Grass",600,300,30);
+							mapElements[x][y] = new BurningStuff("Grass",800,100,3);
 					} 
 					if (y-1<0)
 						mapElements[x][y].setNeighboursUp(false);
