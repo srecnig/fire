@@ -9,7 +9,9 @@ package
 
 		public var mapLayer:FlxGroup;
 		public var map:FlxTilemap;
-
+		
+		private var mapElements:Array = new Array();
+		private var activeElements:Array = new Array();
 		
 		override public function create():void
 		{
