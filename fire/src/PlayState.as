@@ -219,7 +219,7 @@ package
 		public function scorch(point:FlxPoint, direction:int):void {
 			var value:int = defaultFireEnergy;
 			if (direction == windDirection)
-				value = value*3*int(10*(wind.getEnergyLevel()/100));
+				value = value*4*int(10*(wind.getEnergyLevel()/100));
 			if (direction == 1 || direction == 3 || direction == 5 || direction == 7)
 				value /= 2;
 			if (!mapElements[point.x][point.y].isBurnt() && !mapElements[point.x][point.y].isBurning()) {
@@ -257,13 +257,13 @@ package
 							mapElements[x][y] = new BurningStuff("Grass",800,400,1);
 							break ;
 						case 3:
-							mapElements[x][y] = new BurningStuff("Wald",1200,400,2);
+							mapElements[x][y] = new BurningStuff("Wald",1600,400,2);
 							break ;
 						case 6:
-							mapElements[x][y] = new BurningStuff("Stadt",1700,400,3);
+							mapElements[x][y] = new BurningStuff("Stadt",3200,400,3);
 							break ;
 						case 9:
-							mapElements[x][y] = new BurningStuff("See",2200,400,1);
+							mapElements[x][y] = new BurningStuff("See",6400,400,1);
 							break ;
 						//default:
 							//mapElements[x][y] = new BurningStuff("Grass",200,300,3);
