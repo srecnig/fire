@@ -22,8 +22,8 @@ package
 		// 3 = burnt
 		private var burn_state:int = 0;
 		
-		//public tile_position_x;
-		//public tile_position_y;
+		private var tile_position_x:int;
+		private var tile_position_y:int;
 		
 		public function BurningStuff(_type:String, _burn_threshold:int, _burn_duration:int, _burn_energy:int)
 		{
@@ -38,6 +38,26 @@ package
 			this.neighbours_right = true;
 			this.neighbours_down = true;
 			this.neighbours_left = true;
+		}
+		
+		public function setTileX(_x:int):void
+		{
+			this.tile_position_x = _x;
+		}
+		
+		public function getTileX(_x:int):int
+		{
+			return tile_position_x;
+		}
+		
+		public function setTileY(_y:int):void
+		{
+			this.tile_position_y = _y;
+		}
+		
+		public function getTileY(_x:int):int
+		{
+			return tile_position_y;
 		}
 		
 		public function setNeighboursUp(_up:Boolean ):void
