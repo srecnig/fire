@@ -127,7 +127,8 @@ package
 			if (this.burn_threshold > 0)
 				this.burn_threshold = 0;
 			this.burn_state = 2;
-			this.stopSmokeAnimation();
+			if (this.smoke_animation != null)
+				this.stopSmokeAnimation();
 			this.startFireAnimation();
 		}
 		
