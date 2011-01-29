@@ -266,6 +266,7 @@ package
 					mapElements[x][y].checkNeighbours();
 					mapElements[x][y].setTileX(x);
 					mapElements[x][y].setTileY(y);
+					mapElements[x][y].setPlayState(this);
 				}
 			}
 			

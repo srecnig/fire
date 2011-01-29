@@ -20,7 +20,7 @@ package
 		
 		override public function update():void
 		{
-			//super.update();
+			super.update();
 		}
 		
 		public function startAnimation():void
