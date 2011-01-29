@@ -49,7 +49,7 @@ package
 			text = new FlxText(0,30,100,"Hello, World!")
 			this.add(text);
 			
-			var ih:int = mapElements[0][1];
+			//loadGraphic(ImgSpaceman,true,true,8);
 
 		}
 		
@@ -57,6 +57,7 @@ package
 		{
 			super.update();
 			burn();
+			this.add(text);
 			/*
 			if(FlxG.keys.justPressed("B")) {
 				map.setTile(1,1,2,true);
@@ -153,9 +154,11 @@ package
 						setElementActive(new Point(actMapPos.x+1,actMapPos.y+1));
 				
 				// check duration
-				if (!actBurnStuff.decreaseDuration(1)) {
-					//activeElements[i]=null;
-					// TODO change tile
+				if (!actBurnStuff.decreaseDuration(2)) {
+					map.setTile(actMapPos.x,actMapPos.x,map.getTile(actMapPos.x,actMapPos.x)+1,false);
+					text = new FlxText(0,30,100,"blah");
+					add(text);
+					activeElements[i]=null;
 				}
 			}
 		}
@@ -169,6 +172,7 @@ package
 				 return;
 			 }
 			}
+			activeElements.push(point);
 		}
 		
 		public function initMap():void
