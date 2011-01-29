@@ -1,17 +1,22 @@
 package
 {
+	import flash.geom.Point;
+	
 	import org.flixel.*;
 	
 	public class PlayState extends FlxState
 	{
-		[Embed(source = "../images/wald.png")] private var Tiles:Class;
+		[Embed(source = "../images/dummy_tileset.png")] private var Tiles:Class;
 		[Embed(source = '../data/tilemap.txt', mimeType = "application/octet-stream")] private var Map:Class;
 
 		public var mapLayer:FlxGroup;
 		public var map:FlxTilemap;
 		
 		private var mapElements:Array = new Array();
-		private var activeElements:Array = new Array();
+		private var activeElements:Vector = new Vector();
+		private var startPoint:FlxPoint = new FlxPoint(); 
+		private var mapWidth = 4;
+		private var mapHeight = 4;
 		
 		private var wind:Wind;
 		private var stuff:BurningStuff;
@@ -19,13 +24,15 @@ package
 		override public function create():void
 		{
 			initMap();
-			initArray();
 			this.add(mapLayer);
+			initArray();
+			activeElements.push(startPoint);
 		}
 		
 		override public function update():void  
 		{
 			super.update();
+			burn();
 			/*
 			if(FlxG.keys.justPressed("B")) {
 				map.setTile(1,1,2,true);
@@ -35,6 +42,18 @@ package
 			}
 			*/
 			
+		}
+		
+		public function burn():void {
+			var point:Point;
+			var actElement:BurningStuff;
+			for (var i:int=0; i<activeElements.length; i++)
+			{
+				actElement = mapElements[activeElements[i].x][activeElements[i].y];
+				//actElement.decreaseDuration();
+				if (!actElement.isBurning())
+					activeElements.slice(i,1);
+			}
 		}
 		
 		public function initMap():void
@@ -48,21 +67,21 @@ package
 		
 		public function initArray():void
 		{
-			for (var x:int=0; x<4; x++) {
+			for (var x:int=0; x<mapWidth; x++) {
 				mapElements[x] = new Array();
-				for (var y:int=0; y<4; y++) {
+				for (var y:int=0; y<mapHeight; y++) {
 					switch (map.getTile(x,y)) {
 						case 0:
 							mapElements[x][y] = new BurningStuff("Tree",100,10,30);
 							break ;
-						case 1:
-							mapElements[x][y] = new BurningStuff("Tree",100,10,30);
-							break ;
-						case 2:
-							mapElements[x][y] = new BurningStuff("Tree",100,10,30);
-							break ;
 						case 3:
-							mapElements[x][y] = new BurningStuff("Tree",100,10,30);
+							mapElements[x][y] = new BurningStuff("Wald",100,10,30);
+							break ;
+						case 6:
+							mapElements[x][y] = new BurningStuff("Stadt",100,10,30);
+							break ;
+						case 9:
+							mapElements[x][y] = new BurningStuff("See",100,10,30);
 							break ;
 						default:
 							mapElements[x][y] = new BurningStuff("Tree",100,10,30);

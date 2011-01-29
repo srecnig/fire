@@ -66,6 +66,7 @@ package
 		public function decreaseDuration(value:int):void
 		{
 			this.burn_duration -= value;
+			//TODO check for null or negative and update isBurning
 		}
 	}
 }
