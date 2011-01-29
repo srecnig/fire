@@ -219,7 +219,9 @@ package
 		public function scorch(point:FlxPoint, direction:int):void {
 			var value:int = defaultFireEnergy;
 			if (direction == windDirection)
-				value = value*2*int(10*(wind.getEnergyLevel()/100));
+				value = value*3*int(10*(wind.getEnergyLevel()/100));
+			if (direction == 1 || direction == 3 || direction == 5 || direction == 7)
+				value /= 2;
 			if (!mapElements[point.x][point.y].isBurnt() && !mapElements[point.x][point.y].isBurning()) {
 				//var test:Boolean = !mapElements[point.x][point.y].decreaseThreshold(value)
 				if (!mapElements[point.x][point.y].decreaseThreshold(value)) {
