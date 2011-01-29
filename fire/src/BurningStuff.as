@@ -15,6 +15,8 @@ package
 		private var neighbours_down:Boolean;
 		private var neighbours_left:Boolean;
 		
+		private var playstate:PlayState;
+		
 		public var neighbourhood_value:int;
 		
 		// we have 4 states of 'burning'
@@ -40,6 +42,11 @@ package
 			this.neighbours_right = true;
 			this.neighbours_down = true;
 			this.neighbours_left = true;
+		}
+		
+		public function setPlayState(_playstate:PlayState):void
+		{
+			this.playstate = _playstate;
 		}
 		
 		public function setTileX(_x:int):void
@@ -210,6 +217,8 @@ package
 		public function startFireAnimation():void
 		{
 			this.fire_animation = new FireSprite(this.tile_position_x * 48, this.tile_position_y * 48);
+			this.playstate.add(this.fire_animation);
+			this.fire_animation.startAnimation();
 		}
 		
 		public function stopFireAnimation():void
@@ -220,6 +229,8 @@ package
 		public function startSmokeAnimation():void
 		{
 			this.smoke_animation = new SmokeSprite(this.tile_position_x * 48, this.tile_position_y * 48);
+			this.playstate.add(this.smoke_animation);
+			this.smoke_animation.startAnimation();
 		}
 		
 		public function stopSmokeAnimation(): void

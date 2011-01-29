@@ -15,14 +15,19 @@ package
 			this.height = 48;
 			this.width = 48;
 			
-			this.addAnimation("smoking", [0, 1, 2 ], 4);
+			this.addAnimation("smoking", [0, 1, 2 ], 1, true);
 			
-			this.play("smoking");
+			//this.play("smoking");
 		}
 		
 		override public function update():void
 		{
-			super.update();
+			//super.update();
+		}
+		
+		public function startAnimation():void
+		{
+			this.play("smoking");
 		}
 	}
 }
