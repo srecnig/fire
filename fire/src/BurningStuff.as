@@ -10,6 +10,11 @@ package
 		private var fire_animation:FireSprite;
 		private var smoke_animation:SmokeSprite;
 		
+		private var neighbours_up:Boolean;
+		private var neighbours_right:Boolean;
+		private var neighbours_down:Boolean;
+		private var neighbours_left:Boolean;
+		
 		// we have 4 states of 'burning'
 		// 0 = normal
 		// 1 = scorching (anbrennen)
@@ -28,6 +33,51 @@ package
 			this.burn_energy = _burn_energy;
 			
 			this.burn_state = 0;
+			
+			this.neighbours_up = true;
+			this.neighbours_right = true;
+			this.neighbours_down = true;
+			this.neighbours_left = true;
+		}
+		
+		public function setNeighboursUp(_up:Boolean ):void
+		{
+			this.neighbours_up = _up;
+		}
+		
+		public function getNeighboursUp( ):Boolean
+		{
+			return neighbours_up;
+		}
+		
+		public function setNeighboursRight(_right:Boolean ):void
+		{
+			this.neighbours_right = _right;
+		}
+		
+		public function getNeighboursRight( ):Boolean
+		{
+			return neighbours_right;
+		}
+		
+		public function setNeighboursDown(_down:Boolean ):void
+		{
+			this.neighbours_down = _down;
+		}
+		
+		public function getNeighboursDown( ):Boolean
+		{
+			return neighbours_down;
+		}
+		
+		public function setNeighboursLeft(_left:Boolean ):void
+		{
+			this.neighbours_left = _left;
+		}
+		
+		public function getNeighboursLeft( ):Boolean
+		{
+			return neighbours_left;
 		}
 		
 		public function setOnFire():void
