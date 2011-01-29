@@ -29,6 +29,8 @@ package
 		
 		public function setOnFire():void
 		{
+			if (this.burn_threshold > 0)
+				this.burn_threshold = 0;
 			this.burn_state = 1;
 		}
 		
