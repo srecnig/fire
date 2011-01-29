@@ -2,11 +2,11 @@ package
 {
 	public class Wind
 	{
-		private energy_level:Int;
-		private refresh_rate:Int;
-		private use_rate:Int;
+		private var energy_level:int;
+		private var refresh_rate:int;
+		private var use_rate:int;
 		
-		public function Wind(_energy_level:Int, _refresh_rate:Int, _use_rate:Int)
+		public function Wind( _energy_level:int, _refresh_rate:int, _use_rate:int)
 		{
 			this.energy_level = _energy_level;
 			this.refresh_rate = _refresh_rate;

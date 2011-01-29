@@ -13,6 +13,9 @@ package
 		private var mapElements:Array = new Array();
 		private var activeElements:Array = new Array();
 		
+		private var wind:Wind;
+		private var stuff:BurningStuff;
+		
 		override public function create():void
 		{
 			
@@ -24,12 +27,15 @@ package
 		override public function update():void  
 		{
 			super.update();
+			/*
 			if(FlxG.keys.justPressed("B")) {
 				map.setTile(1,1,2,true);
 			}
 			if(FlxG.keys.justPressed("N")) {
 				map.setTile(1,1,0,true);
 			}
+			*/
+			
 		}
 		
 		public function initMap():void
@@ -40,6 +46,11 @@ package
 			map.drawIndex = 0;
 			map.loadMap(new Map, Tiles, 48);
 			mapLayer.add(map);
+		}
+		
+		public function initWindbar():void
+		{
+		
 		}
 		
 		public function calculateBurning():void
