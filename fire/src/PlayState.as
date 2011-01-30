@@ -56,6 +56,8 @@ package
 		
 		private var actLevel:String;
 		private var wind_animation:WindSprite;
+		private var empty_sprite:WindSprite;
+		private var save_wind_sprite:WindSprite;
 		
 		override public function PlayState(level:int):void
 		{
@@ -106,12 +108,13 @@ package
 			//this.add(text);
 			initScore();
 			initDamageArray();
-			//initWindAnimation();
+			initWindAnimation();
 		}
 		
 		override public function update():void  
 		{
 			super.update();
+			
 			if (!gameOver) {
 				if (showMiniScores) {
 					resetDamageArray();
@@ -120,7 +123,7 @@ package
 				} else {
 					burn();
 				}
-			}
+			}		
 			
 			// reset
 			if (FlxG.keys.justPressed("R")) {
@@ -193,9 +196,14 @@ package
 			//var windFactor:int = (wind.getEnergyLevel()/100);
 			wind_bar_bar.scale.x = wind.getEnergyLevel();
 			wind_bar_bar.alpha = (wind.getEnergyLevel()/100);	
-		
+			
 			// draw Wind
-			//startWindAnimation(((360/8)*wind.getDirection())-90);
+			if (wind.isActive() && wind.getDirection() != -1) {
+				startWindAnimation(((360/8)*wind.getDirection())-90);
+				wind_animation.alpha = Math.max(Math.sqrt(wind.getEnergyLevel()/100),0.2);
+			} else { 
+				stopWindAnimation();
+			}
 			
 			// play wind sound
 			if (wind.isActive())
@@ -335,7 +343,6 @@ package
 				
 						} 
 					}
-					windDirection = -1;
 					defaultFireEnergy = 0;
 					
 					// check duration
@@ -354,6 +361,8 @@ package
 			
 			// set fireplaces
 			fireCount = activeElements.length-nullCounter;
+			
+			windDirection = -1;
 			
 			// update score
 			scoreFlxTxt.text = "SCORE: "+int((scoreCount/100).toFixed(0))*100;
@@ -497,7 +506,7 @@ package
 		public function makeDamageArray():void {
 			for (var x:int=0; x<mapWidth; x++) {
 				for (var y:int=0; y<mapHeight; y++) {
-					if (damageArray[x][y][0] > 0) {
+					if (damageArray[x][y][0] > 4) {
 						damageArray[x][y][1].text = "+"+int(damageArray[x][y][0]);
 					}
 				}
@@ -515,7 +524,8 @@ package
 		}
 		
 		public function stopWindAnimation(): void {
-			this.wind_animation.startAnimation();
+			wind_animation.startEmptyAnimation();
+			
 		}
 	
 	}
