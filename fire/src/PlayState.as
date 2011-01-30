@@ -115,7 +115,7 @@ package
 			if (gameOver == true)
 			{
 				text = new FlxText(40, 200, FlxG.width, "YOU'VE BEEN EXTINGUISHED!!!\n\n PRESS ENTER TO PLAY AGAIN");
-				text.setFormat(null, 30, 0xffffffff, null, 0);
+				text.setFormat(null, 30, 0xffffffff, "center", 0);
 				this.add(text);
 			}
 			
