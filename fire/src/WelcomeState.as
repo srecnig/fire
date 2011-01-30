@@ -67,7 +67,7 @@ package
 			if (FlxG.keys.justPressed("ENTER"))
 			{
 				if (selectedItem == "play")
-					FlxG.state = new PlayState();
+					FlxG.state = new PlayState(1);
 				
 				if (selectedItem == "instructions")
 					FlxG.state = new InstructionsState();

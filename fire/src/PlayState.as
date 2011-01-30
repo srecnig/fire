@@ -9,7 +9,8 @@ package
 	{
 		[Embed(source = "../images/inc_tileset.png")] private var Tiles:Class;
 		[Embed(source = '../data/tilemap.txt', mimeType = "application/octet-stream")] private var Map:Class;
-		[Embed(source="../images/wald.png")] private var ImgTiles:Class;
+		[Embed(source = '../data/tilemap_new.txt', mimeType = "application/octet-stream")] private var Map2:Class;
+		[Embed(source = '../data/tilemap_3.txt', mimeType = "application/octet-stream")] private var Map3:Class;
 		[Embed(source="../data/wind.mp3")] public var WindSound:Class;
 		[Embed(source="../data/fire.mp3")] public var FireSound:Class;
 		
@@ -52,6 +53,17 @@ package
 		private var fireSound:FlxSound;
 
 		private var showMiniScores:Boolean = false;
+		
+		private var actLevel:String;
+		
+		override public function PlayState(level:int):void
+		{
+			super.update();
+			FlxG.level = level;
+			if(FlxG.level==1){actLevel = new Map;}
+			if(FlxG.level==2){actLevel = new Map2;}
+			if(FlxG.level==3){actLevel = new Map3;}
+		}
 		
 		override public function create():void
 		{
@@ -108,7 +120,19 @@ package
 			
 			// reset
 			if (FlxG.keys.justPressed("R"))
-				FlxG.state = new PlayState();
+				FlxG.state = new PlayState(FlxG.level);
+			
+			// level 1
+			if (FlxG.keys.justPressed("ONE"))
+				FlxG.state = new PlayState(1);
+			
+			// level 2
+			if (FlxG.keys.justPressed("TWO"))
+				FlxG.state = new PlayState(2);
+			
+			// level 3
+			if (FlxG.keys.justPressed("THREE"))
+				FlxG.state = new PlayState(3);
 			
 			// miniscores
 			if (FlxG.keys.justPressed("S"))
@@ -187,7 +211,7 @@ package
 			
 			if(FlxG.keys.ENTER && gameOver == true)
 			{
-				FlxG.state = new PlayState();
+				FlxG.state = new PlayState(FlxG.level);
 			}
 		}
 		
@@ -336,7 +360,7 @@ package
 			mapLayer = new FlxGroup();
 			map = new FlxTilemap();
 			map.drawIndex = 0;
-			map.loadMap(new Map, Tiles, 48);
+			map.loadMap(actLevel, Tiles, 48);
 			mapLayer.add(map);
 		}
 		
