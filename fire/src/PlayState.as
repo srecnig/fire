@@ -233,10 +233,14 @@ package
 		
 		public function scorch(point:FlxPoint, direction:int):void {
 			var value:int = defaultFireEnergy;
-			if (direction == windDirection) {
+			if (direction == windDirection) 
+			{
 				value = value*4*int(10*(wind.getEnergyLevel()/100));
-			} else {
-				
+				mapElements[point.x][point.y].startBurningSmokeAnimation();
+			} 
+			else 
+			{
+				mapElements[point.x][point.y].startSmokeAnimation();
 			}
 			if (direction == 1 || direction == 3 || direction == 5 || direction == 7)
 				value /= 2;

@@ -225,8 +225,12 @@ package
 		
 		public function startFireAnimation():void
 		{
-			this.fire_animation = new FireSprite(this.tile_position_x * 48, this.tile_position_y * 48);
-			this.playstate.add(this.fire_animation);
+			if (this.fire_animation == null)
+			{
+				this.fire_animation = new FireSprite(this.tile_position_x * 48, this.tile_position_y * 48);
+				this.playstate.add(this.fire_animation);
+			}
+			
 			this.fire_animation.startAnimation();
 		}
 		
@@ -237,9 +241,26 @@ package
 		
 		public function startSmokeAnimation():void
 		{
-			this.smoke_animation = new SmokeSprite(this.tile_position_x * 48, this.tile_position_y * 48);
-			this.playstate.add(this.smoke_animation);
-			this.smoke_animation.startAnimation();
+			if (this.smoke_animation == null)
+			{	
+				this.smoke_animation = new SmokeSprite(this.tile_position_x * 48, this.tile_position_y * 48);
+				this.playstate.add(this.smoke_animation);
+			}
+			
+			this.smoke_animation.play("smoking");
+		}
+		
+		public function startBurningSmokeAnimation():void
+		{
+			
+			if (this.smoke_animation == null)
+			{	
+				this.smoke_animation = new SmokeSprite(this.tile_position_x * 48, this.tile_position_y * 48);
+				this.playstate.add(this.smoke_animation);
+			}
+			
+			this.smoke_animation.play("burning smoke");
+			
 		}
 		
 		public function stopSmokeAnimation(): void
