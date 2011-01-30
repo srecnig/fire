@@ -82,19 +82,29 @@ package
 			//text = new FlxText(0,30,100,"Hello, World!")
 			//this.add(text);
 			initScore();
+			initDamageArray();
 		}
 		
 		override public function update():void  
 		{
 			super.update();
 			if (!gameOver) {
-				burn();
-				
-				/*if (counter >= 2) {
-					initDamageArray();
+				if (FlxG.keys.justPressed("UP") || FlxG.keys.justPressed("RIGHT") || FlxG.keys.justPressed("DOWN") || FlxG.keys.justPressed("LEFT"))
+				{
+					resetDamageArray();
+					burn();
+					makeDamageArray();
 					counter=0;
+				} else if (counter >= 10) {
+					resetDamageArray();
+					burn();
+					makeDamageArray();
+					counter=0;
+				} else {
+					burn();
 				}
-				counter++;*/
+				
+				counter++;
 			}
 			
 			// reset
@@ -167,7 +177,7 @@ package
 		{
 			var actMapPos:FlxPoint;
 			var nullCounter:int=0;
-			initDamageArray();
+			//initDamageArray();
 			
 			//var actBurnStuff:BurningStuff;
 			for (var i:int=0; i<activeElements.length; i++)
@@ -257,7 +267,7 @@ package
 			// set fireplaces
 			fireCount = activeElements.length-nullCounter;
 			
-			
+			// make damage array
 			//makeDamageArray();
 			
 			// update score
@@ -291,7 +301,7 @@ package
 					}
 					activeElements.push(point);
 				} else {
-					//damageArray[point.x][point.y][0] += value;
+					damageArray[point.x][point.y][0] += value;
 				}
 			}
 		}
@@ -316,7 +326,6 @@ package
 		{
 			for (var x:int=0; x<mapWidth; x++) {
 				mapElements[x] = new Array();
-				damageArray[x] = new Array();
 				for (var y:int=0; y<mapHeight; y++) {
 					switch (map.getTile(x,y)) {
 						case 0:
@@ -346,11 +355,6 @@ package
 					mapElements[x][y].setTileX(x);
 					mapElements[x][y].setTileY(y);
 					mapElements[x][y].setPlayState(this);
-					damageArray[x][y] = new Array();
-					damageArray[x][y][0] = 0;
-					damageArray[x][y][1] = new FlxText(x * 48, y * 48, 48, " ");
-					damageArray[x][y][1].setFormat(null, 10, 0xffffffff, "center", 0);
-					this.add(damageArray[x][y][1]);
 				}
 			}
 			
@@ -385,9 +389,22 @@ package
 		
 		public function initDamageArray():void {
 			for (var x:int=0; x<mapWidth; x++) {
+				damageArray[x] = new Array();
+				for (var y:int=0; y<mapHeight; y++) {
+					damageArray[x][y] = new Array();
+					damageArray[x][y][0] = 0;
+					damageArray[x][y][1] = new FlxText(x*48, y*48, 48, " ");
+					damageArray[x][y][1].setFormat(null, 10, 0xffffffff, "center", 0);
+					this.add(damageArray[x][y][1]);
+				}
+			}
+		}
+		
+		public function resetDamageArray():void {
+			for (var x:int=0; x<mapWidth; x++) {
 				for (var y:int=0; y<mapHeight; y++) {
 					damageArray[x][y][0] = 0;
-					damageArray[x][y][1].text = "-";
+					damageArray[x][y][1].text = " ";
 				}
 			}
 		}
@@ -395,7 +412,7 @@ package
 		public function makeDamageArray():void {
 			for (var x:int=0; x<mapWidth; x++) {
 				for (var y:int=0; y<mapHeight; y++) {
-					if (damageArray[x][y][0] > 0) {
+					if (damageArray[x][y][0] > 3) {
 						damageArray[x][y][1].text = "+"+int(damageArray[x][y][0]);
 					}
 				}
