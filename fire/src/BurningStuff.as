@@ -1,5 +1,7 @@
 package
 {
+	import org.flixel.*;
+
 	public class BurningStuff
 	{
 		private var type:String = "";
@@ -189,9 +191,11 @@ package
 			if (!this.isScorching())
 				this.setScorching();	
 			
-			this.burn_threshold -= value; 
-	
-			if (this.burn_threshold <= 0)
+			this.burn_threshold -= value;
+			
+			
+			
+			if (this.burn_threshold <= 5)
 			{
 				this.setOnFire();
 				return false;
@@ -206,7 +210,7 @@ package
 		public function decreaseDuration(value:int):Boolean
 		{
 			this.burn_duration -= value;
-	
+			
 			if (this.burn_duration <= 0)
 			{
 				this.setBurnt();
@@ -241,5 +245,8 @@ package
 		{
 			this.smoke_animation.kill();
 		}
+		
+		
+		
 	}
 }
