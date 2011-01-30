@@ -1,6 +1,8 @@
 package
 {
 	
+	import flashx.textLayout.formats.Float;
+	
 	import org.flixel.*;
 	
 	public class PlayState extends FlxState
@@ -21,6 +23,9 @@ package
 		
 		private var wind:Wind;
 		private var windDirection:int = -1;
+		private var scoreTxt:FlxText;
+		private var scoreCount:int = 0;
+		private var defaultFireEnergy:int = 0;
 		private var wind_bar_frame:FlxSprite;
 		private var wind_bar_inside:FlxSprite;
 		private var wind_bar_bar:FlxSprite;
@@ -64,7 +69,7 @@ package
 		{
 			super.update();
 			burn();
-
+			//score();
 			if (FlxG.keys.justPressed("K"))
 				map.setTile(1,1,6,true);
 			
@@ -135,7 +140,7 @@ package
 				if (!(activeElements[i] == null)) {
 					// init
 					actMapPos = activeElements[i] as FlxPoint;
-					
+					defaultFireEnergy = mapElements[actMapPos.x][actMapPos.y].getBurnEnergy();
 					// check wind
 					if (wind.isActive())
 						windDirection = wind.getDirection();
@@ -197,7 +202,8 @@ package
 				
 						} 
 					}
-					windDirection = -1;	
+					windDirection = -1;
+					defaultFireEnergy = 0;
 					
 					// check duration
 					if (!mapElements[actMapPos.x][actMapPos.y].decreaseDuration(1)) {
@@ -213,9 +219,12 @@ package
 		}
 		
 		public function scorch(point:FlxPoint, direction:int):void {
-			var value:int = 1;
+			var value:int = defaultFireEnergy;
 			if (direction == windDirection)
-				value += 10;
+				value = value*4*int(10*(wind.getEnergyLevel()/100));
+			if (direction == 1 || direction == 3 || direction == 5 || direction == 7)
+				value /= 2;
+			scoreCount += value;
 			if (!mapElements[point.x][point.y].isBurnt() && !mapElements[point.x][point.y].isBurning()) {
 				//var test:Boolean = !mapElements[point.x][point.y].decreaseThreshold(value)
 				if (!mapElements[point.x][point.y].decreaseThreshold(value)) {
@@ -230,6 +239,13 @@ package
 					activeElements.push(point);
 				}
 			}
+		}
+		
+		public function score():void
+		{
+			scoreTxt = new FlxText(20, 40, 600, "Score: " + scoreCount);
+			scoreTxt.setFormat(null, 20, 0xffffffff, null, 0);
+			this.add(scoreTxt);
 		}
 		
 		public function initMap():void
@@ -248,19 +264,19 @@ package
 				for (var y:int=0; y<mapHeight; y++) {
 					switch (map.getTile(x,y)) {
 						case 0:
-							mapElements[x][y] = new BurningStuff("Grass",600,300,30);
+							mapElements[x][y] = new BurningStuff("Grass",800,400,1);
 							break ;
 						case 3:
-							mapElements[x][y] = new BurningStuff("Wald",1000,300,30);
+							mapElements[x][y] = new BurningStuff("Wald",2000,400,2);
 							break ;
 						case 6:
-							mapElements[x][y] = new BurningStuff("Stadt",1500,300,30);
+							mapElements[x][y] = new BurningStuff("Stadt",8400,400,3);
 							break ;
 						case 9:
-							mapElements[x][y] = new BurningStuff("See",2000,300,30);
+							mapElements[x][y] = new BurningStuff("See",10400,400,1);
 							break ;
-						default:
-							mapElements[x][y] = new BurningStuff("Grass",600,300,30);
+						//default:
+							//mapElements[x][y] = new BurningStuff("Grass",200,300,3);
 					} 
 					if (y-1<0)
 						mapElements[x][y].setNeighboursUp(false);

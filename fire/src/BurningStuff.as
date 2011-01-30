@@ -179,6 +179,10 @@ package
 			}
 		}
 		
+		public function getBurnEnergy():int {
+			return burn_energy;
+		}
+		
 		// returns false if threshhold has reached zero
 		public function decreaseThreshold(value:int):Boolean
 		{
