@@ -234,7 +234,7 @@ package
 		{
 			this.smoke_animation = new SmokeSprite(this.tile_position_x * 48, this.tile_position_y * 48);
 			this.playstate.add(this.smoke_animation);
-			this.smoke_animation.startAnimation();
+			this.smoke_animation.startSmokingAnimation();
 		}
 		
 		public function stopSmokeAnimation(): void
