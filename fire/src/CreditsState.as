@@ -15,6 +15,10 @@ package
 			this.initMap();
 			this.add(mapLayer);
 			
+			var background:FlxSprite = new FlxSprite(0, 0);
+			background.createGraphic(624, 480, 0x2F000000);
+			this.add(background);
+			
 			var title:FlxText = new FlxText(0, 16, FlxG.width, "CREDITS");
 			title.setFormat (null, 60, 0xFFFFFFFF, "center");
 			add(title);

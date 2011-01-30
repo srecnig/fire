@@ -25,6 +25,12 @@ package
 			this.initMap();
 			this.add(this.mapLayer);
 			
+			// add opaque background to make everything better readable
+			
+			var background:FlxSprite = new FlxSprite(0, 0);
+			background.createGraphic(624, 480, 0x2F000000); //White frame for the health bar
+			this.add(background);
+			
 			selectedItem = "play"
 			
 			title = new FlxText(0, 16, FlxG.width, "FIRE!");
