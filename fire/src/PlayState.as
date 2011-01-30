@@ -390,7 +390,7 @@ package
 				for (var y:int=0; y<mapHeight; y++) {
 					damageArray[x][y] = new Array();
 					damageArray[x][y][0] = 0;
-					damageArray[x][y][1] = new FlxText(x*48, y*48, 48, " ");
+					damageArray[x][y][1] = new FlxText(x*48, y*48+19, 48, " ");
 					damageArray[x][y][1].setFormat(null, 10, 0xffffffff, "center", 0);
 					this.add(damageArray[x][y][1]);
 				}
