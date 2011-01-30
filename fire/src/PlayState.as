@@ -55,6 +55,7 @@ package
 		private var showMiniScores:Boolean = false;
 		
 		private var actLevel:String;
+		private var wind_animation:WindSprite;
 		
 		override public function PlayState(level:int):void
 		{
@@ -105,6 +106,7 @@ package
 			//this.add(text);
 			initScore();
 			initDamageArray();
+			initWindAnimation();
 		}
 		
 		override public function update():void  
@@ -182,14 +184,19 @@ package
 				// regain wind-power
 				wind.refresh();
 			}
+			
 			// refresh wind bar
+			//var windFactor:int = (wind.getEnergyLevel()/100);
 			wind_bar_bar.scale.x = wind.getEnergyLevel();
+			wind_bar_bar.alpha = (wind.getEnergyLevel()/100);	
 		
+			// draw Wind
+			startWindAnimation(((360/8)*wind.getDirection())-90);
 			
 			// play wind sound
 			if (wind.isActive())
 			{	
-				windSound.volume = wind.getEnergyLevel() / 100;
+				windSound.volume = (wind.getEnergyLevel()/100);
 			}
 			else
 			{
@@ -446,7 +453,7 @@ package
 			
 			
 			wind_bar_inside = new FlxSprite(5,5);
-			wind_bar_inside.createGraphic(100,8,0xff000000); //Black interior, 48 pixels wide
+			wind_bar_inside.createGraphic(100,8,0xffffffff); //Black interior, 48 pixels wide
 			wind_bar_inside.scrollFactor.x = wind_bar_inside.scrollFactor.y = 0;
 			add(wind_bar_inside);
 			
@@ -491,7 +498,20 @@ package
 				}
 			}
 		}
+		
+		public function initWindAnimation(): void {
+			this.wind_animation = new WindSprite(312-155, 240-64);
+			this.add(wind_animation);
+		}
+	
+		public function startWindAnimation(direction:int): void {
+			this.wind_animation.startAnimation();
+			wind_animation.setDirection(direction);
+		}
+		
+		public function stopWindAnimation(): void {
+			this.wind_animation.startAnimation();
+		}
 	
 	}
-
 }
