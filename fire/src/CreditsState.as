@@ -24,7 +24,8 @@ package
 			add(title);
 			
 			var credits_string:String = "so long, and thanks for all the fish.\n\nthis game was made by:\nsrecnig, c4ux, vierlex\n\n";
-			credits_string += "special thanks to:\nemi\nglobal game jam #11\naustrian game jam #11"
+			credits_string += "special thanks to:\nemi, #ggj11, #agj11\n\nsounds from freesound.org, for more details see:\n";
+			credits_string += "freesound.org/usersAttribution.php?id=2005146\n";
 			
 			var credits:FlxText = new FlxText(0, 110, FlxG.width, credits_string);
 			credits.setFormat(null, 20, 0xFFFFFFFF, "center");
