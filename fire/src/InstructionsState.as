@@ -33,7 +33,7 @@ package
 			instruction.setFormat(null, 20, 0xFFFFFFFF, "center");
 			this.add(instruction);
 			
-			var back_text:FlxText = new FlxText(0, 400, FlxG.width, "RETURN WITH ENTER");
+			var back_text:FlxText = new FlxText(0, 400, FlxG.width, "ENTER TO START GAME");
 			back_text.setFormat (null, 30, 0xFFFFFFFF, "center");
 			this.add(back_text);
 		}
@@ -44,7 +44,7 @@ package
 			
 			if (FlxG.keys.justPressed("ENTER"))
 			{
-				FlxG.state = new WelcomeState();
+				FlxG.state = new PlayState(1);
 			}
 		}
 		
