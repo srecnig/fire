@@ -31,6 +31,8 @@ package
 		private var tile_position_x:int;
 		private var tile_position_y:int;
 		
+		private var bonusFlxTxt:FlxText;
+		
 		public function BurningStuff(_type:String, _burn_threshold:int, _burn_duration:int, _burn_energy:int)
 		{
 			this.type = _type;
@@ -193,11 +195,10 @@ package
 			
 			this.burn_threshold -= value;
 			
-			
-			
 			if (this.burn_threshold <= 5)
 			{
 				this.setOnFire();
+				
 				return false;
 			}
 			else
@@ -246,7 +247,19 @@ package
 			this.smoke_animation.kill();
 		}
 		
+		public function initBonus(): void {
+			bonusFlxTxt = new FlxText(this.tile_position_x * 48, this.tile_position_y * 48+19, 48, " ");
+			bonusFlxTxt.setFormat(null, 10, 0xffffffff, "center", 0);
+			playstate.add(bonusFlxTxt);
+		}
 		
+		public function writeDamage(value:int): void {
+			if (bonusFlxTxt == null)
+				initBonus();
+			
+			if (value > 1)
+				bonusFlxTxt.text = "+"+int(value);
+		}
 		
 	}
 }
