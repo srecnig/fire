@@ -15,6 +15,7 @@ package
 		public var map:FlxTilemap;
 		
 		private var mapElements:Array = new Array();
+		private var damageArray:Array = new Array();
 		
 		private var activeElements:Array= new Array();
 		private var startPoint:FlxPoint = new FlxPoint(); 
@@ -38,6 +39,8 @@ package
 		private var text:FlxText;
 		
 		private var gameOver:Boolean = false;
+		
+		private var bonusFlxTxt:FlxText;
 		
 		override public function create():void
 		{
@@ -226,8 +229,11 @@ package
 		
 		public function scorch(point:FlxPoint, direction:int):void {
 			var value:int = defaultFireEnergy;
-			if (direction == windDirection)
+			if (direction == windDirection) {
 				value = value*4*int(10*(wind.getEnergyLevel()/100));
+			} else {
+				
+			}
 			if (direction == 1 || direction == 3 || direction == 5 || direction == 7)
 				value /= 2;
 			scoreCount += value;
@@ -243,6 +249,8 @@ package
 						}
 					}
 					activeElements.push(point);
+				} else {
+					damageArray[x][y][0] = value;
 				}
 			}
 		}
@@ -267,6 +275,7 @@ package
 		{
 			for (var x:int=0; x<mapWidth; x++) {
 				mapElements[x] = new Array();
+				damageArray[x] = new Array();
 				for (var y:int=0; y<mapHeight; y++) {
 					switch (map.getTile(x,y)) {
 						case 0:
@@ -296,6 +305,7 @@ package
 					mapElements[x][y].setTileX(x);
 					mapElements[x][y].setTileY(y);
 					mapElements[x][y].setPlayState(this);
+					damageArray[x][y] = new Array();
 				}
 			}
 			
@@ -327,5 +337,24 @@ package
 			add(wind_bar_bar);
 			
 		}
+		
+		/*public function 
+		
+		public function initFieldBonus(point:FlxPoint): void {
+			bonusFlxTxt = new FlxText(this.point.x * 48, this.point.y * 48+19, 48, " ");
+			bonusFlxTxt.setFormat(null, 10, 0xffffffff, "center", 0);
+			playstate.add(bonusFlxTxt);
+		}*/
 	}
+	
+	/*public class FieldBonus
+	{
+		public function FieldBonus(point:FlxPoint)
+		{
+			bonusFlxTxt = new FlxText(this.point.x * 48, this.point.y * 48+19, 48, " ");
+			bonusFlxTxt.setFormat(null, 10, 0xffffffff, "center", 0);
+			playstate.add(bonusFlxTxt);
+		}
+	}*/
+
 }
