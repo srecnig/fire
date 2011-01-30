@@ -347,9 +347,6 @@ package
 			// set fireplaces
 			fireCount = activeElements.length-nullCounter;
 			
-			// make damage array
-			//makeDamageArray();
-			
 			// update score
 			scoreFlxTxt.text = "SCORE: "+int((scoreCount/100).toFixed(0))*100;
 		}
