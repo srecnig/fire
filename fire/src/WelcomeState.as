@@ -41,9 +41,11 @@ package
 			playGame.setFormat (null, 40, 0xFFEE1100, "center");
 			add(playGame);
 			
+			/*
 			instructions = new FlxText(0, 250, FlxG.width, "INSTRUCTIONS");
 			instructions.setFormat (null, 40, 0xFFFFFFFF, "center");
 			add(instructions);
+			*/
 			
 			/*
 			fire_left = new FireSprite(20, 200);
@@ -67,10 +69,10 @@ package
 			if (FlxG.keys.justPressed("ENTER"))
 			{
 				if (selectedItem == "play")
-					FlxG.state = new PlayState(1);
-				
-				if (selectedItem == "instructions")
 					FlxG.state = new InstructionsState();
+				
+				//if (selectedItem == "instructions")
+				//	FlxG.state = new InstructionsState();
 				
 				if (selectedItem == "credits")
 					FlxG.state = new CreditsState(); 	
@@ -78,8 +80,9 @@ package
 			
 			if (FlxG.keys.justPressed("UP"))
 			{
+				/*
 				if (selectedItem == "instructions")
-				{
+				{	
 					// new = play
 					playGame.setFormat (null, 40, 0xFFEE1100, "center");
 					instructions.setFormat (null, 40, 0xFFFFFFFF, "center");
@@ -89,16 +92,20 @@ package
 				}
 				else
 				{
+				*/
+				
 					if (selectedItem == "credits")
 					{
 						// new = instructions
-						playGame.setFormat (null, 40, 0xFFFFFFFF, "center");
-						instructions.setFormat (null, 40, 0xFFEE1100, "center");
+						playGame.setFormat (null, 40, 0xFFEE1100, "center");
+						//instructions.setFormat (null, 40, 0xFFEE1100, "center");
 						credits.setFormat (null, 40, 0xFFFFFFFF, "center");
 						
-						selectedItem = "instructions";
+						selectedItem = "play";
 					}
+				/*	
 				}
+			    */
 			}
 			
 			if (FlxG.keys.justPressed("DOWN") )
@@ -107,11 +114,12 @@ package
 				{
 					// new = instructions
 					playGame.setFormat (null, 40, 0xFFFFFFFF, "center");
-					instructions.setFormat (null, 40, 0xFFEE1100, "center");
-					credits.setFormat (null, 40, 0xFFFFFFFF, "center");
+					//instructions.setFormat (null, 40, 0xFFEE1100, "center");
+					credits.setFormat (null, 40, 0xFFEE1100, "center");
 					
-					selectedItem = "instructions";
+					selectedItem = "credits";
 				}
+				/*
 				else
 				{	
 					if (selectedItem == "instructions" )
@@ -124,6 +132,7 @@ package
 						selectedItem = "credits";
 					}
 				}
+				*/
 			}
 		}
 		
