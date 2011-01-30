@@ -50,6 +50,7 @@ package
 
 		private var windSound:FlxSound;
 
+		private var showMiniScores:Boolean = false;
 		
 		override public function create():void
 		{
@@ -89,27 +90,23 @@ package
 		{
 			super.update();
 			if (!gameOver) {
-				if (FlxG.keys.justPressed("UP") || FlxG.keys.justPressed("RIGHT") || FlxG.keys.justPressed("DOWN") || FlxG.keys.justPressed("LEFT"))
-				{
+				if (showMiniScores) {
 					resetDamageArray();
 					burn();
 					makeDamageArray();
-					counter=0;
-				} else if (counter >= 10) {
-					resetDamageArray();
-					burn();
-					makeDamageArray();
-					counter=0;
 				} else {
 					burn();
 				}
-				
-				counter++;
 			}
 			
 			// reset
 			if (FlxG.keys.justPressed("R"))
 				FlxG.state = new PlayState();
+			
+			// miniscores
+			if (FlxG.keys.justPressed("S"))
+				if (!showMiniScores) showMiniScores = true;
+				else showMiniScores = false;
 			
 			// handle keystrokes
 			if (FlxG.keys.UP || FlxG.keys.RIGHT || FlxG.keys.DOWN || FlxG.keys.LEFT)
@@ -278,7 +275,7 @@ package
 			var value:int = defaultFireEnergy;
 			if (direction == windDirection) 
 			{
-				value = value*4*int(10*(wind.getEnergyLevel()/100));
+				value = value*5*int(10*(wind.getEnergyLevel()/100));
 				mapElements[point.x][point.y].startBurningSmokeAnimation();
 			} 
 			else 
@@ -329,16 +326,16 @@ package
 				for (var y:int=0; y<mapHeight; y++) {
 					switch (map.getTile(x,y)) {
 						case 0:
-							mapElements[x][y] = new BurningStuff("Grass",800,400,1);
+							mapElements[x][y] = new BurningStuff("Grass",2000,400,2);
 							break ;
 						case 3:
-							mapElements[x][y] = new BurningStuff("Wald",2000,400,2);
+							mapElements[x][y] = new BurningStuff("Wald",5000,400,4);
 							break ;
 						case 6:
-							mapElements[x][y] = new BurningStuff("Stadt",8400,400,3);
+							mapElements[x][y] = new BurningStuff("Stadt",18000,400,5);
 							break ;
 						case 9:
-							mapElements[x][y] = new BurningStuff("See",10400,400,1);
+							mapElements[x][y] = new BurningStuff("See",26000,400,4);
 							break ;
 						//default:
 							//mapElements[x][y] = new BurningStuff("Grass",200,300,3);
@@ -412,7 +409,7 @@ package
 		public function makeDamageArray():void {
 			for (var x:int=0; x<mapWidth; x++) {
 				for (var y:int=0; y<mapHeight; y++) {
-					if (damageArray[x][y][0] > 3) {
+					if (damageArray[x][y][0] > 0) {
 						damageArray[x][y][1].text = "+"+int(damageArray[x][y][0]);
 					}
 				}
