@@ -17,6 +17,9 @@ package
 		private var instructions:FlxText;
 		private var credits:FlxText;
 		
+		private var fire_left:FireSprite;
+		private var fire_right:FireSprite;
+		
 		override public function create():void
 		{
 			this.initMap();
@@ -35,6 +38,16 @@ package
 			instructions = new FlxText(0, 250, FlxG.width, "INSTRUCTIONS");
 			instructions.setFormat (null, 40, 0xFFFFFFFF, "center");
 			add(instructions);
+			
+			/*
+			fire_left = new FireSprite(20, 200);
+			fire_left.startAnimation();
+			this.add(fire_left);
+			
+			fire_right = new FireSprite(420, 200);
+			this.add(fire_right);
+			fire_right.startAnimation();
+			*/
 			
 			credits = new FlxText(0, 300, FlxG.width, "CREDITS");
 			credits.setFormat (null, 40, 0xFFFFFFFF, "center");
