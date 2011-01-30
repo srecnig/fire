@@ -11,7 +11,7 @@ package
 		[Embed(source = '../data/tilemap.txt', mimeType = "application/octet-stream")] private var Map:Class;
 		[Embed(source="../images/wald.png")] private var ImgTiles:Class;
 		[Embed(source="../data/wind.mp3")] public var WindSound:Class;
-
+		[Embed(source="../data/fire.mp3")] public var FireSound:Class;
 		
 		public var mapLayer:FlxGroup;
 		public var map:FlxTilemap;
@@ -45,6 +45,7 @@ package
 		private var bonusFlxTxt:FlxText;
 		
 		private var windSound:FlxSound;
+		private var fireSound:FlxSound;
 		
 		override public function create():void
 		{
@@ -71,6 +72,12 @@ package
 			windSound = new FlxSound();
 			windSound.loadEmbedded(WindSound, true);
 			windSound.volume = 0.1;
+			windSound.play();
+			
+			// init firesound
+			fireSound = new FlxSound();
+			fireSound.loadEmbedded(FireSound, true);
+			windSound.volume = 0.0
 			windSound.play();
 			
 			// debug text
