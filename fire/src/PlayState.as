@@ -353,10 +353,10 @@ package
 							mapElements[x][y] = new BurningStuff("Wald",5000,400,4);
 							break ;
 						case 6:
-							mapElements[x][y] = new BurningStuff("Stadt",18000,400,5);
+							mapElements[x][y] = new BurningStuff("Stadt",14000,400,5);
 							break ;
 						case 9:
-							mapElements[x][y] = new BurningStuff("See",26000,400,4);
+							mapElements[x][y] = new BurningStuff("See",21000,400,4);
 							break ;
 						//default:
 							//mapElements[x][y] = new BurningStuff("Grass",200,300,3);
