@@ -23,7 +23,8 @@ package
 		
 		private var wind:Wind;
 		private var windDirection:int = -1;
-		private var scoreTxt:FlxText;
+		private var scoreFlxTxt:FlxText;
+		private var scoreTxt:String;
 		private var scoreCount:int = 0;
 		private var defaultFireEnergy:int = 0;
 		private var wind_bar_frame:FlxSprite;
@@ -62,16 +63,17 @@ package
 			// debug text
 			//text = new FlxText(0,30,100,"Hello, World!")
 			//this.add(text);
-
+			initScore();
 		}
 		
 		override public function update():void  
 		{
 			super.update();
 			burn();
-			//score();
-			if (FlxG.keys.justPressed("K"))
-				map.setTile(1,1,6,true);
+			
+			// reset
+			if (FlxG.keys.justPressed("R"))
+				FlxG.state = new PlayState();
 			
 			// handle keystrokes
 			if (FlxG.keys.UP || FlxG.keys.RIGHT || FlxG.keys.DOWN || FlxG.keys.LEFT)
@@ -216,6 +218,10 @@ package
 			}
 			if (nullCounter == activeElements.length)
 				gameOver=true;
+			
+			// update score
+			if (scoreCount)
+				scoreFlxTxt.text = "Score: "+scoreCount;
 		}
 		
 		public function scorch(point:FlxPoint, direction:int):void {
@@ -241,11 +247,11 @@ package
 			}
 		}
 		
-		public function score():void
+		public function initScore():void
 		{
-			scoreTxt = new FlxText(20, 40, 600, "Score: " + scoreCount);
-			scoreTxt.setFormat(null, 20, 0xffffffff, null, 0);
-			this.add(scoreTxt);
+			scoreFlxTxt = new FlxText(20, 40, 300, "Score: 0");
+			scoreFlxTxt.setFormat(null, 20, 0xffffffff, null, 0);
+			this.add(scoreFlxTxt);
 		}
 		
 		public function initMap():void
