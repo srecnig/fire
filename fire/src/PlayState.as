@@ -106,7 +106,7 @@ package
 			//this.add(text);
 			initScore();
 			initDamageArray();
-			initWindAnimation();
+			//initWindAnimation();
 		}
 		
 		override public function update():void  
@@ -143,6 +143,10 @@ package
 			// level 3
 			if (FlxG.keys.justPressed("THREE"))
 				FlxG.state = new PlayState(3);
+			
+			// level 3
+			if (FlxG.keys.justPressed("M"))
+				FlxG.state = new WelcomeState();
 			
 			// miniscores
 			if (FlxG.keys.justPressed("S"))
@@ -191,7 +195,7 @@ package
 			wind_bar_bar.alpha = (wind.getEnergyLevel()/100);	
 		
 			// draw Wind
-			startWindAnimation(((360/8)*wind.getDirection())-90);
+			//startWindAnimation(((360/8)*wind.getDirection())-90);
 			
 			// play wind sound
 			if (wind.isActive())
@@ -227,8 +231,8 @@ package
 						FlxG.state = new PlayState(FlxG.level+1);
 					}
 				} else {
-					text.text = "YOU'VE BEEN EXTINGUISHED!!!\n\nPRESS ENTER TO PLAY AGAIN\n\nYOUR FINAL SCORE:\n"+int((scoreCount/100).toFixed(0))*100;
-					text.y = 120;
+					text.text = "YOU'VE BEEN EXTINGUISHED!!!\n\nPRESS ENTER TO PLAY AGAIN\n\nYOUR FINAL SCORE:\n"+int((scoreCount/100).toFixed(0))*100+"\n\nPRESS SPACE TO TWITTER YOUR RESULT!";
+					text.y = 100;
 					if(FlxG.keys.justPressed("ENTER"))
 					{
 						FlxG.scores[0] = 0;
@@ -236,6 +240,10 @@ package
 						FlxG.scores[2] = 0;
 						FlxG.scores[3] = 0;
 						FlxG.state = new PlayState(1);
+					}
+					if(FlxG.keys.justPressed("SPACE"))
+					{
+						FlxU.openURL("http://twitter.com/home?status=I played Fire and got a Score of "+int((scoreCount/100).toFixed(0))*100+"!");
 					}
 				}
 				text.setFormat(null, 30, 0xffffffff, "center", 0);
@@ -470,7 +478,7 @@ package
 				for (var y:int=0; y<mapHeight; y++) {
 					damageArray[x][y] = new Array();
 					damageArray[x][y][0] = 0;
-					damageArray[x][y][1] = new FlxText(x*48, y*48+19, 48, " ");
+					damageArray[x][y][1] = new FlxText(x*48+13, y*48+29, 40, " ");
 					damageArray[x][y][1].setFormat(null, 10, 0xffffffff, "center", 0);
 					this.add(damageArray[x][y][1]);
 				}
