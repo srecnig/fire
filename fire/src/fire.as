@@ -7,7 +7,7 @@ package
 	{
 		public function fire()
 		{
-			super(640,480,WelcomeState,1); //Create a new FlxGame object at 320x240 with 2x pixels, then load PlayState
+			super(628,480,WelcomeState,1); //Create a new FlxGame object at 320x240 with 2x pixels, then load PlayState
 		}
 	}
 }
