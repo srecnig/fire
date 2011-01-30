@@ -11,7 +11,7 @@ package
 		[Embed(source = '../data/tilemap.txt', mimeType = "application/octet-stream")] private var Map:Class;
 		[Embed(source="../images/wald.png")] private var ImgTiles:Class;
 		[Embed(source="../data/wind.mp3")] public var WindSound:Class;
-
+		[Embed(source="../data/fire.mp3")] public var FireSound:Class;
 		
 		public var mapLayer:FlxGroup;
 		public var map:FlxTilemap;
@@ -49,6 +49,7 @@ package
 		private var fireCount:int = 0;
 
 		private var windSound:FlxSound;
+		private var fireSound:FlxSound;
 
 		private var showMiniScores:Boolean = false;
 		
@@ -78,6 +79,12 @@ package
 			windSound.loadEmbedded(WindSound, true);
 			windSound.volume = 0.1;
 			windSound.play();
+			
+			// init firesound
+			fireSound = new FlxSound();
+			fireSound.loadEmbedded(FireSound, true);
+			fireSound.volume = 0.1
+			fireSound.play();
 			
 			// debug text
 			//text = new FlxText(0,30,100,"Hello, World!")
@@ -156,12 +163,26 @@ package
 			{
 				windSound.volume = 0.1;
 			}
+			
+			// take care of fire sound
+			if (fireCount >= 10)
+			{
+				fireSound.volume = 1;
+			}
+			else
+			{
+				fireSound.volume = fireCount / 10;
+			}
 				
 			if (gameOver == true)
 			{
 				text = new FlxText(0, 200, FlxG.width, "YOU'VE BEEN EXTINGUISHED!!!\n\nPRESS ENTER TO PLAY AGAIN");
 				text.setFormat(null, 30, 0xffffffff, "center", 0);
 				this.add(text);
+				
+				// stop/fade out sounds
+				windSound.fadeOut(2, true);
+				fireSound.fadeOut(2, true);
 			}
 			
 			if(FlxG.keys.ENTER && gameOver == true)
