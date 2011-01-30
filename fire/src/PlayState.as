@@ -10,6 +10,8 @@ package
 		[Embed(source = "../images/inc_tileset.png")] private var Tiles:Class;
 		[Embed(source = '../data/tilemap.txt', mimeType = "application/octet-stream")] private var Map:Class;
 		[Embed(source="../images/wald.png")] private var ImgTiles:Class;
+		[Embed(source="../data/wind.mp3")] public var WindSound:Class;
+
 		
 		public var mapLayer:FlxGroup;
 		public var map:FlxTilemap;
@@ -42,6 +44,8 @@ package
 		
 		private var bonusFlxTxt:FlxText;
 		
+		private var windSound:FlxSound;
+		
 		override public function create():void
 		{
 			initMap();
@@ -62,6 +66,12 @@ package
 			
 			// add windbar (and initialize wind)
 			initWind();
+			
+			// init wind sound
+			windSound = new FlxSound();
+			windSound.loadEmbedded(WindSound, true);
+			windSound.volume = 0.1;
+			windSound.play();
 			
 			// debug text
 			//text = new FlxText(0,30,100,"Hello, World!")
@@ -119,12 +129,17 @@ package
 			// refresh wind bar
 			wind_bar_bar.scale.x = wind.getEnergyLevel();
 		
-			/*
+			
+			// play wind sound
 			if (wind.isActive())
-				text.text = String(wind.getDirection());
+			{	
+				windSound.volume = wind.getEnergyLevel() / 100;
+			}
 			else
-				text.text = "";
-			*/
+			{
+				windSound.volume = 0.1;
+			}
+				
 			if (gameOver == true)
 			{
 				text = new FlxText(0, 200, FlxG.width, "YOU'VE BEEN EXTINGUISHED!!!\n\nPRESS ENTER TO PLAY AGAIN");
