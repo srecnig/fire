@@ -23,21 +23,13 @@ package
 			title.setFormat (null, 60, 0xFFFFFFFF, "center");
 			add(title);
 			
-			/*
-			var instruction_string:String = "destroy as much as you can!\n\nthere's a fire in this charming scenery, but\nwithout ";
-			instruction_string += "wise use of the wind (using your arrow\n keys), it will be extinguished pretty fast. but\n remember,";
-			instruction_string += "the wind gets weaker if it's blown for\nsome time, and it takes some time to recharge (watch the ";
-			instruction_string += "wind-power-bar at the top left).\nalso, remember that grass is ignited more easy than a house (or\n ";
-			instruction_string += "a lake), and does not give away as much heat as a\nburning house (or a lake)."
-			*/
-
 			var instruction_string:String = "destroy as much as you can!\n\nthere's a fire in this charming scenery, but without ";
 			instruction_string += "wise use of the wind (using your arrow keys), it will be extinguished pretty fast. but remember,";
 			instruction_string += "the wind gets weaker if it's blown for some time, and it takes some time to recharge (watch the ";
 			instruction_string += "wind-power-bar at the top left). also, remember that grass is ignited more easy than a house (or ";
-			instruction_string += "a lake), and does not give away as much heat as a burning house (or a burning lake)."
+			instruction_string += "a lake), and does not give away as much heat as a burning house (or lake)."
 				
-			var instruction:FlxText = new FlxText(0, 100, FlxG.width, instruction_string);
+			var instruction:FlxText = new FlxText(5, 100, FlxG.width-20, instruction_string);
 			instruction.setFormat(null, 20, 0xFFFFFFFF, "center");
 			this.add(instruction);
 			
