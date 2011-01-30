@@ -42,6 +42,10 @@ package
 		
 		private var bonusFlxTxt:FlxText;
 		
+		private var counter:int = 0;
+		
+		private var fireCount:int = 0;
+		
 		override public function create():void
 		{
 			initMap();
@@ -74,7 +78,12 @@ package
 			super.update();
 			if (!gameOver) {
 				burn();
-				makeDamageArray();
+				
+				/*if (counter >= 2) {
+					initDamageArray();
+					counter=0;
+				}
+				counter++;*/
 			}
 			
 			// reset
@@ -224,8 +233,16 @@ package
 					nullCounter++;
 				}
 			}
+			
+			// set gameover
 			if (nullCounter == activeElements.length)
 				gameOver=true;
+			
+			// set fireplaces
+			fireCount = activeElements.length-nullCounter;
+			
+			
+			//makeDamageArray();
 			
 			// update score
 			scoreFlxTxt.text = "SCORE: "+int((scoreCount/100).toFixed(0))*100;
@@ -258,7 +275,7 @@ package
 					}
 					activeElements.push(point);
 				} else {
-					damageArray[x][y][0] += value;
+					//damageArray[point.x][point.y][0] += value;
 				}
 			}
 		}
@@ -314,6 +331,10 @@ package
 					mapElements[x][y].setTileY(y);
 					mapElements[x][y].setPlayState(this);
 					damageArray[x][y] = new Array();
+					damageArray[x][y][0] = 0;
+					damageArray[x][y][1] = new FlxText(x * 48, y * 48, 48, " ");
+					damageArray[x][y][1].setFormat(null, 10, 0xffffffff, "center", 0);
+					this.add(damageArray[x][y][1]);
 				}
 			}
 			
@@ -350,44 +371,21 @@ package
 			for (var x:int=0; x<mapWidth; x++) {
 				for (var y:int=0; y<mapHeight; y++) {
 					damageArray[x][y][0] = 0;
-					if (damageArray[x][y][1] == null) {
-						damageArray[x][y][1] = null
-					} else {
-						//damageArray[x][y][1].text = " ";
-					}
+					damageArray[x][y][1].text = "-";
 				}
 			}
 		}
 		
 		public function makeDamageArray():void {
-			/*for (var x:int=0; x<mapWidth; x++) {
+			for (var x:int=0; x<mapWidth; x++) {
 				for (var y:int=0; y<mapHeight; y++) {
-					//if (damageArray[x][y][0] != 0) {
-						//mapElements[x][y].writeDamage(4);
-						if (damageArray[x][y][1] == null) {
-							damageArray[x][y][1] = new FlxText(x * 48, y * 48+19, 48, "+"+int(damageArray[x][y][0]));
-							damageArray[x][y][1].setFormat(null, 10, 0xffffffff, "center", 0);
-							this.add(damageArray[x][y][1]);
-						} else {
-							damageArray[x][y][1].text == "+"+int(damageArray[x][y][0]);
-						}
-					//}
+					if (damageArray[x][y][0] > 0) {
+						damageArray[x][y][1].text = "+"+int(damageArray[x][y][0]);
+					}
 				}
-			}*/
+			}
 		}
-		
+	
 	}
-	
-	
-	
-	/*public class FieldBonus
-	{
-		public function FieldBonus(point:FlxPoint)
-		{
-			bonusFlxTxt = new FlxText(this.point.x * 48, this.point.y * 48+19, 48, " ");
-			bonusFlxTxt.setFormat(null, 10, 0xffffffff, "center", 0);
-			playstate.add(bonusFlxTxt);
-		}
-	}*/
 
 }
