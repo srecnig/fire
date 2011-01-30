@@ -321,20 +321,5 @@ package
 			add(wind_bar_bar);
 			
 		}
-		
-		public function calculateBurning():void
-		{
-			// we have a two dimensional array containing our burningStuff 
-			// objects, according to the tilemap
-			
-			// we also have an array containing all burning objects
-			// iterate through those and call the apropiate method (e.g. 
-			// decreaseThreshold) for neighbours
-			
-			// how do we find the neighbours?
-			
-			// when do we set neighbours on fire?
-		}
-		
 	}
 }
