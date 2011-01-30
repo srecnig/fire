@@ -50,11 +50,11 @@ package
 				if (selectedItem == "play")
 					FlxG.state = new PlayState();
 				
-				//if (selectedItem == "instructions");
-				//	FlxG.state = new InstructionsState();
+				if (selectedItem == "instructions")
+					FlxG.state = new InstructionsState();
 				
-				//if (selectedItem == "credits");
-				//	FlxG.state = new CreditsState(); 	
+				if (selectedItem == "credits")
+					FlxG.state = new CreditsState(); 	
 			}
 			
 			if (FlxG.keys.justPressed("UP"))
@@ -117,10 +117,5 @@ package
 			mapLayer.add(map);
 		}
 		
-		
-		public function WelcomeState()
-		{
-			super();			
-		}
 	}
 }
