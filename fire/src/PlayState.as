@@ -69,7 +69,8 @@ package
 		override public function update():void  
 		{
 			super.update();
-			burn();
+			if (!gameOver)
+				burn();
 			
 			// reset
 			if (FlxG.keys.justPressed("R"))
@@ -220,8 +221,7 @@ package
 				gameOver=true;
 			
 			// update score
-			if (scoreCount)
-				scoreFlxTxt.text = "Score: "+scoreCount;
+			scoreFlxTxt.text = "SCORE: "+int((scoreCount/100).toFixed(0))*100;
 		}
 		
 		public function scorch(point:FlxPoint, direction:int):void {
@@ -249,8 +249,8 @@ package
 		
 		public function initScore():void
 		{
-			scoreFlxTxt = new FlxText(20, 40, 300, "Score: 0");
-			scoreFlxTxt.setFormat(null, 20, 0xffffffff, null, 0);
+			scoreFlxTxt = new FlxText(200, 10, 200, "Score: 0");
+			scoreFlxTxt.setFormat(null, 20, 0xffffffff, "center", 0);
 			this.add(scoreFlxTxt);
 		}
 		
