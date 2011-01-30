@@ -19,6 +19,15 @@ package
 			title.setFormat (null, 60, 0xFFFFFFFF, "center");
 			add(title);
 			
+			var instruction_string:String = "destroy as much as you can!\n\nthere's a fire in this charming scenery, but\nwithout ";
+			instruction_string += "wise use of the wind (using your arrow\n keys), it will be extinguished pretty fast. but\n remember,";
+			instruction_string += "the wind gets weaker if it's blown for\nsome time, and it takes some time to recharge (watch the "
+			instruction_string += "wind-power-bar at the top left).\n\nshow no mercy!"
+			
+			var instruction:FlxText = new FlxText(0, 110, FlxG.width, instruction_string);
+			instruction.setFormat(null, 20, 0xFFFFFFFF, "center");
+			this.add(instruction);
+			
 			var back_text:FlxText = new FlxText(0, 400, FlxG.width, "RETURN WITH ENTER");
 			back_text.setFormat (null, 30, 0xFFFFFFFF, "center");
 			this.add(back_text);
