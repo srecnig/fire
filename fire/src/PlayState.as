@@ -251,7 +251,7 @@ package
 					}
 					if(FlxG.keys.justPressed("SPACE"))
 					{
-						FlxU.openURL("http://twitter.com/home?status=I played Fire and got a Score of "+int((scoreCount/100).toFixed(0))*100+"!");
+						FlxU.openURL("http://twitter.com/home?status=I played with Fire and got a Score of "+int((scoreCount/100).toFixed(0))*100+"!");
 					}
 				}
 				text.setFormat(null, 30, 0xffffffff, "center", 0);
