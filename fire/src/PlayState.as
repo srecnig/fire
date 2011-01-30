@@ -63,6 +63,8 @@ package
 			if(FlxG.level==1){actLevel = new Map;}
 			if(FlxG.level==2){actLevel = new Map2;}
 			if(FlxG.level==3){actLevel = new Map3;}
+			scoreCount = FlxG.scores[0];
+			
 		}
 		
 		override public function create():void
@@ -119,8 +121,14 @@ package
 			}
 			
 			// reset
-			if (FlxG.keys.justPressed("R"))
-				FlxG.state = new PlayState(FlxG.level);
+			if (FlxG.keys.justPressed("R")) {
+				FlxG.scores[0] = 0;
+				FlxG.scores[1] = 0;
+				FlxG.scores[2] = 0;
+				FlxG.scores[3] = 0;
+				FlxG.state = new PlayState(1);
+			}
+				
 			
 			// level 1
 			if (FlxG.keys.justPressed("ONE"))
@@ -200,7 +208,29 @@ package
 				
 			if (gameOver == true)
 			{
-				text = new FlxText(0, 200, FlxG.width, "YOU'VE BEEN EXTINGUISHED!!!\n\nPRESS ENTER TO PLAY AGAIN");
+				if (text == null)
+					initEndMessage();
+				if (FlxG.level < 3) {
+					text.text = "PRESS ENTER TO PROCEED TO NEXT LEVEL!!";
+					if(FlxG.keys.justPressed("ENTER"))
+					{
+						var score:int = int((scoreCount/100).toFixed(0))*100;
+						FlxG.scores[0] = score;
+						FlxG.scores[FlxG.level] = score;
+						FlxG.state = new PlayState(FlxG.level+1);
+					}
+				} else {
+					text.text = "YOU'VE BEEN EXTINGUISHED!!!\n\nPRESS ENTER TO PLAY AGAIN\n\nYOUR FINAL SCORE:\n"+int((scoreCount/100).toFixed(0))*100;
+					text.y = 120;
+					if(FlxG.keys.justPressed("ENTER"))
+					{
+						FlxG.scores[0] = 0;
+						FlxG.scores[1] = 0;
+						FlxG.scores[2] = 0;
+						FlxG.scores[3] = 0;
+						FlxG.state = new PlayState(1);
+					}
+				}
 				text.setFormat(null, 30, 0xffffffff, "center", 0);
 				this.add(text);
 				
@@ -208,11 +238,12 @@ package
 				windSound.fadeOut(2, true);
 				fireSound.fadeOut(2, true);
 			}
-			
-			if(FlxG.keys.ENTER && gameOver == true)
-			{
-				FlxG.state = new PlayState(FlxG.level);
-			}
+		}
+		
+		public function initEndMessage():void {
+			text = new FlxText(0, 200, FlxG.width, " ");
+			text.setFormat(null, 30, 0xffffffff, "center", 0);
+			this.add(text);
 		}
 		
 		public function burn():void
